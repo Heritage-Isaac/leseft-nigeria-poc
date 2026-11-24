@@ -3,47 +3,50 @@
 import { revalidatePath } from 'next/cache'
 import { writeClient } from '@/sanity/lib/write-client'
 
-export interface UpdateCompanyProfileInput {
+export interface UpdateSiteSettingsInput {
   companyName: string
-  pageHeading: string
-  shortIntroduction: string
-  mission: string
-  vision: string
+  cacNumber: string
+  headquartersAddress: string
+  contactPhone: string
+  contactEmail: string
+  parentCompanyUrl: string
+  heroHeadline: string
+  heroSubheadline: string
 }
 
-export async function updateCompanyProfileInSanity(input: UpdateCompanyProfileInput) {
+export async function updateSiteSettingsInSanity(input: UpdateSiteSettingsInput) {
   try {
     if (!process.env.SANITY_API_WRITE_TOKEN) {
       return {
         success: false,
         error:
-          'SANITY_API_WRITE_TOKEN is not configured in .env.local. Generate an Editor token in Sanity Manage (https://www.sanity.io/manage) to enable writing back to Sanity from this admin panel.',
+          'SANITY_API_WRITE_TOKEN is not configured in .env.local. Generate an Editor token in Sanity Manage (https://www.sanity.io/manage) to enable writing directly to Sanity from this admin panel.',
       }
     }
 
-    // Patch or create singleton companyProfile document in Sanity Content Lake
     const result = await writeClient
-      .patch('companyProfile')
+      .patch('siteSettings')
       .set({
         companyName: input.companyName,
-        pageHeading: input.pageHeading,
-        shortIntroduction: input.shortIntroduction,
-        mission: input.mission,
-        vision: input.vision,
+        cacNumber: input.cacNumber,
+        headquartersAddress: input.headquartersAddress,
+        contactPhone: input.contactPhone,
+        contactEmail: input.contactEmail,
+        parentCompanyUrl: input.parentCompanyUrl,
+        heroHeadline: input.heroHeadline,
+        heroSubheadline: input.heroSubheadline,
       })
       .commit({
         autoGenerateArrayKeys: true,
       })
 
-    // Revalidate live website paths
     revalidatePath('/')
-    revalidatePath('/about')
     revalidatePath('/admin')
 
     return {
       success: true,
       data: result,
-      message: 'Successfully updated in Sanity Studio and published to live website!',
+      message: 'Successfully updated in Sanity Content Lake and published live!',
     }
   } catch (err: any) {
     console.error('Failed to update Sanity document:', err)
@@ -52,4 +55,54 @@ export async function updateCompanyProfileInSanity(input: UpdateCompanyProfileIn
       error: err?.message || 'Failed to update document in Sanity.',
     }
   }
+}
+
+export async function toggleCommodityStatus(id: string, newActiveState: boolean) {
+  try {
+    if (!process.env.SANITY_API_WRITE_TOKEN) {
+      return {
+        success: false,
+        error: 'SANITY_API_WRITE_TOKEN not configured in .env.local.',
+      }
+    }
+
+    const result = await writeClient.patch(id).set({ active: newActiveState }).commit()
+    revalidatePath('/')
+    revalidatePath('/admin')
+    return { success: true, data: result }
+  } catch (err: any) {
+    return { success: false, error: err?.message || 'Failed to update commodity status.' }
+  }
+}
+
+export async function toggleCareerStatus(id: string, newActiveState: boolean) {
+  try {
+    if (!process.env.SANITY_API_WRITE_TOKEN) {
+      return {
+        success: false,
+        error: 'SANITY_API_WRITE_TOKEN not configured in .env.local.',
+      }
+    }
+
+    const result = await writeClient.patch(id).set({ active: newActiveState }).commit()
+    revalidatePath('/')
+    revalidatePath('/admin')
+    return { success: true, data: result }
+  } catch (err: any) {
+    return { success: false, error: err?.message || 'Failed to update career status.' }
+  }
+}
+
+// Retain legacy method for backward compatibility
+export async function updateCompanyProfileInSanity(input: any) {
+  return updateSiteSettingsInSanity({
+    companyName: input.companyName,
+    cacNumber: 'RC-7669078',
+    headquartersAddress: 'Plot 69, Gold Court Estate Street, Katampe District, FCT Abuja',
+    contactPhone: '+234 809 533 2333',
+    contactEmail: 'info@leseft.cz',
+    parentCompanyUrl: 'https://www.leseft.cz/en/',
+    heroHeadline: input.pageHeading || 'Bridging European Industrial Standards with West African Markets',
+    heroSubheadline: input.shortIntroduction || '',
+  })
 }

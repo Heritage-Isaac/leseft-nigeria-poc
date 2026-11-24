@@ -1,69 +1,88 @@
 import React from 'react'
-import { sanityFetch, fallbackCompanyProfile, fallbackProjects, fallbackEmailDrafts } from '@/sanity/lib/client'
-import { companyProfileQuery, projectsQuery, emailDraftsQuery } from '@/sanity/lib/queries'
-import type { CompanyProfile, Project, EmailDraft } from '@/types'
-import { StatusBanner } from '@/components/common/StatusBanner'
+import {
+  sanityFetch,
+  fallbackSiteSettings,
+  fallbackSectors,
+  fallbackCommodities,
+  fallbackCareerListings,
+} from '@/sanity/lib/client'
+import {
+  siteSettingsQuery,
+  sectorsQuery,
+  commoditiesQuery,
+  careerListingsQuery,
+} from '@/sanity/lib/queries'
+import type { SiteSettings, Sector, Commodity, CareerListing } from '@/types'
+import { LanguageProvider } from '@/context/LanguageContext'
 import { Navbar } from '@/components/layout/Navbar'
 import { Hero } from '@/components/home/Hero'
-import { CompanyOverview } from '@/components/home/CompanyOverview'
-import { ProjectsSection } from '@/components/home/ProjectsSection'
-import { EmailCampaignDemo } from '@/components/email/EmailCampaignDemo'
+import { PillarRibbon } from '@/components/home/PillarRibbon'
+import { CzechMetallurgySection } from '@/components/home/CzechMetallurgySection'
+import { SectorsSection } from '@/components/home/SectorsSection'
+import { CommoditiesDesk } from '@/components/home/CommoditiesDesk'
+import { TrustSection } from '@/components/home/TrustSection'
+import { CareersSection } from '@/components/home/CareersSection'
+import { TradeInquirySection } from '@/components/home/TradeInquirySection'
 import { Footer } from '@/components/layout/Footer'
 
-// Disable static caching so edits in Sanity Studio appear immediately on page refresh
+// Real-time revalidation so changes in Sanity reflect immediately on refresh
 export const revalidate = 0
 
 export default async function HomePage() {
-  // Fetch published company profile from Sanity
-  const profileFetch = await sanityFetch<CompanyProfile>({
-    query: companyProfileQuery,
-    fallback: fallbackCompanyProfile,
+  // Fetch site settings from Sanity (with authentic fallback)
+  const settingsFetch = await sanityFetch<SiteSettings>({
+    query: siteSettingsQuery,
+    fallback: fallbackSiteSettings,
   })
 
-  // Fetch published projects from Sanity
-  const projectsFetch = await sanityFetch<Project[]>({
-    query: projectsQuery,
-    fallback: fallbackProjects,
+  // Fetch sectors from Sanity
+  const sectorsFetch = await sanityFetch<Sector[]>({
+    query: sectorsQuery,
+    fallback: fallbackSectors,
   })
 
-  // Fetch email drafts from Sanity
-  const emailDraftsFetch = await sanityFetch<EmailDraft[]>({
-    query: emailDraftsQuery,
-    fallback: fallbackEmailDrafts,
+  // Fetch commodities from Sanity
+  const commoditiesFetch = await sanityFetch<Commodity[]>({
+    query: commoditiesQuery,
+    fallback: fallbackCommodities,
   })
 
-  const profile = profileFetch.data || fallbackCompanyProfile
-  const projects = projectsFetch.data || fallbackProjects
-  const emailDrafts = emailDraftsFetch.data || fallbackEmailDrafts
-  const isLive = profileFetch.isLiveFromSanity || projectsFetch.isLiveFromSanity
+  // Fetch career listings from Sanity
+  const careersFetch = await sanityFetch<CareerListing[]>({
+    query: careerListingsQuery,
+    fallback: fallbackCareerListings,
+  })
+
+  const settings = settingsFetch.data || fallbackSiteSettings
+  const sectors = sectorsFetch.data || fallbackSectors
+  const commodities = commoditiesFetch.data || fallbackCommodities
+  const careers = careersFetch.data || fallbackCareerListings
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Top Status Notification Bar */}
-      <StatusBanner
-        isLiveFromSanity={isLive}
-        companyName={profile.companyName || 'LeSeft Nigeria Limited'}
-      />
+    <LanguageProvider>
+      <div className="flex flex-col min-h-screen bg-white">
+        {/* Official Corporate Navigation */}
+        <Navbar
+          companyName={settings.companyName}
+          phone={settings.contactPhone}
+          email={settings.contactEmail}
+        />
 
-      {/* Main Navigation Bar */}
-      <Navbar companyName={profile.companyName} />
+        {/* Main B2B Portal Content */}
+        <main className="flex-1">
+          <Hero settings={settings} />
+          <PillarRibbon />
+          <CzechMetallurgySection />
+          <SectorsSection sectors={sectors} />
+          <CommoditiesDesk commodities={commodities} />
+          <TrustSection />
+          <CareersSection careers={careers} contactEmail={settings.contactEmail} />
+          <TradeInquirySection settings={settings} />
+        </main>
 
-      {/* Hero Section */}
-      <main className="flex-1">
-        <Hero profile={profile} />
-
-        {/* Company Profile Overview & Values */}
-        <CompanyOverview profile={profile} />
-
-        {/* Recent Corporate Projects */}
-        <ProjectsSection projects={projects} />
-
-        {/* Sanity Email Drafting & Cloudinary CDN Module */}
-        <EmailCampaignDemo drafts={emailDrafts} />
-      </main>
-
-      {/* Corporate Footer */}
-      <Footer companyName={profile.companyName} />
-    </div>
+        {/* Corporate Footer */}
+        <Footer settings={settings} />
+      </div>
+    </LanguageProvider>
   )
 }

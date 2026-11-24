@@ -12,9 +12,9 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'LeSeft Nigeria Limited | Corporate & Infrastructure Solutions',
+  title: 'Leseft Nigeria Limited | European Industrial Standards & West African Trade',
   description:
-    'Premier Nigerian corporate engineering, industrial facilities, and project management enterprise. Powered by Next.js and Sanity CMS.',
+    'Headquartered in Abuja, Leseft Nigeria Limited (RC-7669078) delivers clean energy hardware, industrial machinery, EU metallurgy, and high-grade agricultural commodities across West Africa.',
 }
 
 export default async function RootLayout({
@@ -32,7 +32,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased flex flex-col"
+        className="min-h-screen bg-white text-[#17191C] font-sans antialiased flex flex-col"
         suppressHydrationWarning
       >
         {children}

@@ -1,104 +1,170 @@
-import React from 'react'
-import Link from 'next/link'
-import { MapPin, Mail, ArrowUpRight, ShieldCheck } from 'lucide-react'
+'use client'
 
-export function Footer({ companyName = 'LeSeft Nigeria Limited' }: { companyName?: string }) {
+import React from 'react'
+import { ShieldCheck, Phone, Mail, MapPin, ExternalLink, Globe } from 'lucide-react'
+import type { SiteSettings } from '@/types'
+import { fallbackSiteSettings } from '@/sanity/lib/client'
+import { useLanguage } from '@/context/LanguageContext'
+
+interface FooterProps {
+  settings?: SiteSettings
+  companyName?: string
+}
+
+export function Footer({ settings = fallbackSiteSettings, companyName }: FooterProps) {
+  const { lang, setLang, t } = useLanguage()
+
+  const activeSettings = {
+    ...settings,
+    companyName: companyName || settings.companyName || 'Leseft Nigeria Limited',
+  }
+
   return (
-    <footer className="bg-slate-950 text-slate-400 text-sm border-t border-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          {/* Col 1: Corporate Brand */}
+    <footer className="bg-[#414042] text-white border-t-2 border-[#1C75BC]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+          {/* Col 1: Corporate Brand & Registration */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-md bg-white text-slate-950 flex items-center justify-center font-bold text-base">
+              <div className="w-8 h-8 rounded-xs bg-[#1C75BC] text-white flex items-center justify-center font-bold text-xs tracking-wider">
                 LS
               </div>
-              <span className="font-bold text-lg text-white tracking-tight">
-                {companyName}
+              <span className="font-bold text-base text-white tracking-tight">
+                {activeSettings.companyName}
               </span>
             </div>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-md">
-              Delivering high-integrity corporate engineering, industrial facilities, and project management solutions across Nigeria. Built on compliance, precision execution, and community empowerment.
+
+            <p className="text-xs text-[#C9D1D9] leading-relaxed max-w-md">
+              {t.footer.aboutText}
             </p>
-            <div className="flex items-center gap-2 pt-2 text-xs text-slate-400">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Registered in the Federal Republic of Nigeria (RC Certified)</span>
+
+            <div className="space-y-1.5 pt-2 text-xs">
+              <div className="flex items-center gap-2 text-[#E0E0E0]">
+                <ShieldCheck className="w-4 h-4 text-[#27AAE1] shrink-0" />
+                <span>
+                  {t.footer.registeredText}: <strong className="font-mono text-white">{activeSettings.cacNumber}</strong> (Inc. {activeSettings.incorporationDate})
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-[#B0B0B0]">
+                <span>{t.footer.parentLabel}:</span>
+                <a
+                  href={activeSettings.parentCompanyUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[#27AAE1] hover:underline flex items-center gap-1 font-semibold"
+                >
+                  <span>{activeSettings.parentCompanyName} ({activeSettings.parentCompanyLocation})</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
             </div>
           </div>
 
-          {/* Col 2: Navigation & CMS Links */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider">
-              Quick Navigation
+          {/* Col 2: Navigation Links */}
+          <div className="space-y-3 text-xs">
+            <h4 className="font-bold text-white uppercase tracking-wider text-[11px]">
+              {t.footer.verticalsTitle}
             </h4>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-[#C9D1D9]">
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
-                  Company Profile
-                </Link>
+                <a href="#sectors" className="hover:text-[#27AAE1] transition-colors">
+                  {t.nav.sectors}
+                </a>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-white transition-colors">
-                  Corporate Projects
-                </Link>
+                <a href="#metallurgy" className="hover:text-[#27AAE1] transition-colors">
+                  {t.nav.metallurgy}
+                </a>
               </li>
               <li>
-                <Link href="/admin" className="hover:text-white transition-colors">
-                  Admin & Audit Intelligence
-                </Link>
+                <a href="#commodities" className="hover:text-[#27AAE1] transition-colors">
+                  {t.nav.commodities}
+                </a>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
-                  Contact & RFP
-                </Link>
+                <a href="#why-partner" className="hover:text-[#27AAE1] transition-colors">
+                  {t.nav.whyPartner}
+                </a>
               </li>
               <li>
-                <Link
-                  href="/studio"
-                  className="inline-flex items-center gap-1 text-sky-400 hover:text-sky-300 font-medium"
-                >
-                  <span>Sanity CMS Studio</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
+                <a href="#careers" className="hover:text-[#27AAE1] transition-colors">
+                  {t.nav.careers}
+                </a>
+              </li>
+              <li>
+                <a href="#quote" className="hover:text-[#27AAE1] transition-colors">
+                  {t.nav.contact}
+                </a>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Nigerian Offices */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold text-slate-200 uppercase tracking-wider">
-              Operational Offices
-            </h4>
-            <div className="space-y-3 text-xs leading-relaxed">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
-                <span>
-                  <strong>Lagos Liaison:</strong><br />
-                  Victoria Island, Lagos State, Nigeria
-                </span>
+          {/* Col 3: Nigerian Head Office & Languages */}
+          <div className="space-y-4 text-xs">
+            <div className="space-y-2.5">
+              <h4 className="font-bold text-white uppercase tracking-wider text-[11px]">
+                {t.footer.headquartersTitle}
+              </h4>
+              <div className="space-y-2 text-[#C9D1D9] leading-relaxed">
+                <div className="flex items-start gap-2">
+                  <MapPin className="w-3.5 h-3.5 text-[#27AAE1] shrink-0 mt-0.5" />
+                  <span>{activeSettings.headquartersAddress}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone className="w-3.5 h-3.5 text-[#27AAE1] shrink-0" />
+                  <a href={`tel:${activeSettings.contactPhone.replace(/\s+/g, '')}`} className="font-mono text-white hover:text-[#27AAE1]">
+                    {activeSettings.contactPhone}
+                  </a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="w-3.5 h-3.5 text-[#27AAE1] shrink-0" />
+                  <a href={`mailto:${activeSettings.contactEmail}`} className="font-mono text-white hover:text-[#27AAE1]">
+                    {activeSettings.contactEmail}
+                  </a>
+                </div>
               </div>
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
-                <span>
-                  <strong>Federal Capital Territory:</strong><br />
-                  Central Business District, Abuja FCT
-                </span>
-              </div>
-              <div className="flex items-center gap-2 pt-1 text-slate-300">
-                <Mail className="w-4 h-4 text-slate-400 shrink-0" />
-                <span>info@leseft.com</span>
+            </div>
+
+            {/* Language Selector in Footer */}
+            <div className="pt-2 border-t border-white/10 space-y-1.5">
+              <span className="text-[11px] font-semibold text-[#A0A0A5] flex items-center gap-1">
+                <Globe className="w-3 h-3 text-[#27AAE1]" />
+                <span>Languages / Jazyky:</span>
+              </span>
+              <div className="flex items-center gap-2">
+                {[
+                  { code: 'en', label: 'English' },
+                  { code: 'cs', label: 'Čeština' },
+                  { code: 'pl', label: 'Polski' },
+                ].map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => setLang(l.code as any)}
+                    className={`px-2 py-1 rounded-xs text-[11px] font-bold transition-all ${
+                      lang === l.code
+                        ? 'bg-[#1C75BC] text-white shadow-xs'
+                        : 'bg-[#2A2A2C] text-[#C9D1D9] hover:bg-white/10'
+                    }`}
+                  >
+                    {l.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <p suppressHydrationWarning>© {new Date().getFullYear()} {companyName}. All rights reserved.</p>
-          <p className="flex items-center gap-2 text-slate-400">
-            <span>Next.js App Router + Sanity CMS Integration Proof of Concept</span>
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#A0A0A5]">
+          <p>© {new Date().getFullYear()} {activeSettings.companyName}. {t.footer.rightsReserved}</p>
+          <p className="flex items-center gap-3">
+            <span>Trade</span>
             <span>•</span>
-            <span className="text-sky-400 font-medium">Ready for Production Deployment</span>
+            <span>Energy</span>
+            <span>•</span>
+            <span>Industry</span>
+            <span>•</span>
+            <span>West Africa</span>
           </p>
         </div>
       </div>

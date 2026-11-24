@@ -25,7 +25,7 @@ export function AnalyticsView() {
           Website Analytics & Content Lake Metrics
         </h2>
         <p className="text-xs text-[#626B75] mt-0.5">
-          Real live document telemetry from Sanity Content Lake (<code className="font-mono text-[#17191C]">5c2yalf2</code>) and production web analytics.
+          Real live document telemetry from Sanity Content Lake and production web analytics.
         </p>
       </div>
 
@@ -38,29 +38,29 @@ export function AnalyticsView() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="p-4 rounded-xs border border-[#E5E7EB] bg-white space-y-1">
             <div className="flex items-center justify-between text-[#89919A]">
-              <span className="text-xs font-semibold text-[#626B75]">Corporate Projects</span>
+              <span className="text-xs font-semibold text-[#626B75]">Physical Commodities</span>
               <Layers className="w-4 h-4 text-[#2563EB]" />
             </div>
-            <p className="text-2xl font-bold text-[#17191C] font-mono">3</p>
-            <p className="text-[11px] text-[#89919A]">Published in Sanity dataset</p>
+            <p className="text-2xl font-bold text-[#17191C] font-mono">6</p>
+            <p className="text-[11px] text-[#89919A]">Active trade catalog records</p>
           </div>
 
           <div className="p-4 rounded-xs border border-[#E5E7EB] bg-white space-y-1">
             <div className="flex items-center justify-between text-[#89919A]">
-              <span className="text-xs font-semibold text-[#626B75]">Company Profile</span>
+              <span className="text-xs font-semibold text-[#626B75]">Corporate Profile</span>
               <FileText className="w-4 h-4 text-[#16A36A]" />
             </div>
             <p className="text-2xl font-bold text-[#17191C] font-mono">1</p>
-            <p className="text-[11px] text-[#89919A]">Singleton document active</p>
+            <p className="text-[11px] text-[#89919A]">Singleton settings document</p>
           </div>
 
           <div className="p-4 rounded-xs border border-[#E5E7EB] bg-white space-y-1">
             <div className="flex items-center justify-between text-[#89919A]">
-              <span className="text-xs font-semibold text-[#626B75]">Email Draft Campaigns</span>
+              <span className="text-xs font-semibold text-[#626B75]">Career Postings</span>
               <Mail className="w-4 h-4 text-[#D99016]" />
             </div>
             <p className="text-2xl font-bold text-[#17191C] font-mono">2</p>
-            <p className="text-[11px] text-[#89919A]">Newsletter drafts in CMS</p>
+            <p className="text-[11px] text-[#89919A]">Abuja positions active</p>
           </div>
         </div>
       </div>

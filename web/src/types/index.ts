@@ -28,6 +28,80 @@ export interface PortableTextBlock {
   children?: PortableTextBlockChild[]
 }
 
+export interface SiteSettings {
+  _id?: string
+  _type?: 'siteSettings'
+  companyName: string
+  cacNumber: string
+  incorporationDate: string
+  headquartersAddress: string
+  contactPhone: string
+  contactEmail: string
+  parentCompanyName: string
+  parentCompanyLocation: string
+  parentCompanyUrl: string
+  fourPillars: string[]
+  heroEyebrow: string
+  heroHeadline: string
+  heroSubheadline: string
+}
+
+export interface Sector {
+  _id: string
+  _type?: 'sector'
+  title: string
+  slug: { current: string }
+  iconType: 'energy' | 'industry' | 'trade'
+  shortSummary: string
+  capabilities: string[]
+  recommendedImageGuidance?: string
+  displayOrder?: number
+}
+
+export interface Commodity {
+  _id: string
+  _type?: 'commodity'
+  name: string
+  category: 'commodities' | 'energy' | 'industrial'
+  tradeDirection: 'Import' | 'Export' | 'Bilateral'
+  availableGrades: string
+  originDestination?: string
+  minimumVolume?: string
+  active: boolean
+  description?: string
+}
+
+export interface CareerListing {
+  _id: string
+  _type?: 'careerListing'
+  title: string
+  slug: { current: string }
+  department: string
+  location: string
+  jobType: string
+  keyTasks?: string[]
+  requirements?: string[]
+  applicationEmail: string
+  deadline?: string
+  active: boolean
+}
+
+export interface TradeInquiry {
+  _id?: string
+  _type?: 'tradeInquiry'
+  fullName: string
+  companyName: string
+  email: string
+  phone?: string
+  sector?: string
+  commodityOrProduct?: string
+  volume?: string
+  destination?: string
+  message?: string
+  status?: 'new' | 'in_review' | 'quoted' | 'closed'
+  submittedAt?: string
+}
+
 export interface CompanyProfile {
   _id?: string
   _type?: 'companyProfile'

@@ -1,9 +1,124 @@
 import { groq } from 'next-sanity'
 
 /**
- * Company Profile Query
- * Retrieves the published singleton companyProfile document.
- * Filters out unpublished drafts: !(_id in path('drafts.**'))
+ * Site Settings Query (Singleton)
+ */
+export const siteSettingsQuery = groq`
+  *[_type == "siteSettings" && !(_id in path("drafts.**"))][0] {
+    _id,
+    _type,
+    companyName,
+    cacNumber,
+    incorporationDate,
+    headquartersAddress,
+    contactPhone,
+    contactEmail,
+    parentCompanyName,
+    parentCompanyLocation,
+    parentCompanyUrl,
+    fourPillars,
+    heroEyebrow,
+    heroHeadline,
+    heroSubheadline
+  }
+`
+
+/**
+ * Business Sectors Query
+ */
+export const sectorsQuery = groq`
+  *[_type == "sector" && !(_id in path("drafts.**"))] | order(displayOrder asc) {
+    _id,
+    _type,
+    title,
+    slug,
+    iconType,
+    shortSummary,
+    capabilities,
+    recommendedImageGuidance,
+    displayOrder
+  }
+`
+
+/**
+ * Commodities & Hardware Catalog Query
+ */
+export const commoditiesQuery = groq`
+  *[_type == "commodity" && !(_id in path("drafts.**")) && active == true] | order(category asc, name asc) {
+    _id,
+    _type,
+    name,
+    category,
+    tradeDirection,
+    availableGrades,
+    originDestination,
+    minimumVolume,
+    active,
+    description
+  }
+`
+
+/**
+ * All Commodities Query for Admin Desk (includes inactive)
+ */
+export const allCommoditiesQuery = groq`
+  *[_type == "commodity" && !(_id in path("drafts.**"))] | order(category asc, name asc) {
+    _id,
+    _type,
+    name,
+    category,
+    tradeDirection,
+    availableGrades,
+    originDestination,
+    minimumVolume,
+    active,
+    description
+  }
+`
+
+/**
+ * Career Listings Query
+ */
+export const careerListingsQuery = groq`
+  *[_type == "careerListing" && !(_id in path("drafts.**")) && active == true] | order(_createdAt desc) {
+    _id,
+    _type,
+    title,
+    slug,
+    department,
+    location,
+    jobType,
+    keyTasks,
+    requirements,
+    applicationEmail,
+    deadline,
+    active
+  }
+`
+
+/**
+ * Trade Inquiries Query (for Admin)
+ */
+export const tradeInquiriesQuery = groq`
+  *[_type == "tradeInquiry" && !(_id in path("drafts.**"))] | order(submittedAt desc) {
+    _id,
+    _type,
+    fullName,
+    companyName,
+    email,
+    phone,
+    sector,
+    commodityOrProduct,
+    volume,
+    destination,
+    message,
+    status,
+    submittedAt
+  }
+`
+
+/**
+ * Company Profile Query (Legacy compatibility)
  */
 export const companyProfileQuery = groq`
   *[_type == "companyProfile" && !(_id in path("drafts.**"))][0] {
@@ -31,8 +146,6 @@ export const companyProfileQuery = groq`
 
 /**
  * Projects List Query
- * Retrieves all published projects ordered by publishedDate descending.
- * Ensures drafts are excluded from public site.
  */
 export const projectsQuery = groq`
   *[_type == "project" && !(_id in path("drafts.**"))] | order(publishedDate desc) {

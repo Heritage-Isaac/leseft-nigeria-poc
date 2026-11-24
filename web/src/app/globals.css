@@ -1,15 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --color-primary: #0f172a;
-  --color-primary-hover: #1e293b;
-  --color-brand-accent: #0284c7;
-  --color-brand-accent-hover: #0369a1;
-  --color-surface-subtle: #f8fafc;
-  --color-border-subtle: #e2e8f0;
+  --font-sans: var(--font-inter), 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-inter), 'PT Sans Narrow', -apple-system, sans-serif;
 
-  /* Almost-sharp corporate precision radius scale (2px - 4px) */
+  /* Leseft International brand palette (extracted from leseft.cz) */
+  --color-primary: #1C75BC;         /* Main brand blue — navbar, borders, CTAs */
+  --color-primary-dark: #145A91;    /* Darker blue for hover states */
+  --color-primary-light: #27AAE1;   /* Secondary lighter blue from SVG logo */
+  --color-dark: #414042;            /* Brand dark — text, footer, logo */
+  --color-dark-deep: #2A2A2C;       /* Deeper dark for backgrounds */
+  --color-body: #4D4D4D;            /* Standard body text */
+  --color-accent: #E8B44B;          /* Warm gold accent for CTAs and highlights */
+  --color-surface: #F7F9FB;         /* Light surface background */
+  --color-border: #E1E1E1;          /* Neutral borders */
+
+  /* Almost-sharp corporate precision radius scale */
   --radius-xs: 2px;
   --radius-sm: 3px;
   --radius-md: 3px;
@@ -21,12 +27,12 @@
 
 @layer base {
   :root {
-    --bg-page: #f8fafc;
-    --surface-card: #ffffff;
-    --text-heading: #0f172a;
-    --text-body: #334155;
-    --text-muted: #64748b;
-    --border-light: #e2e8f0;
+    --bg-page: #FFFFFF;
+    --surface-card: #FFFFFF;
+    --text-heading: #414042;
+    --text-body: #4D4D4D;
+    --text-muted: #7A7A7D;
+    --border-light: #E1E1E1;
   }
 
   * {
