@@ -36,7 +36,7 @@ export const fallbackSiteSettings: SiteSettings = {
   heroEyebrow: 'A Subsidiary of Leseft International s.r.o. (Czech Republic)',
   heroHeadline: 'Bridging European Industrial Standards with West African Markets',
   heroSubheadline:
-    'Headquartered in Abuja, Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, and high-grade agricultural commodities across Nigeria and West Africa.',
+    'Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, EU-certified metallurgy, and high-grade agricultural commodities across Nigeria and West Africa.',
 }
 
 // 3 Core Business Pillars

@@ -9,7 +9,6 @@ import {
   ShieldCheck,
   Check,
   ArrowRight,
-  ExternalLink,
 } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
 
@@ -96,20 +95,11 @@ export function CzechMetallurgySection() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="flex items-center gap-3">
             <div className="px-3 py-2 rounded-xs bg-[#F7F9FB] border border-[#E1E1E1] text-[11px] font-semibold text-[#414042] flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#1C75BC]" />
               <span>{t.metallurgy.isoBadge}</span>
             </div>
-            <a
-              href="https://www.leseft.cz/activity/"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-[#1C75BC] hover:bg-[#145A91] rounded-xs transition-colors shadow-xs"
-            >
-              <span>Visit leseft.cz</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
           </div>
         </div>
 

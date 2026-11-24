@@ -1,11 +1,6 @@
 export type Language = 'en' | 'cs' | 'pl'
 
 export interface TranslationDictionary {
-  topRibbon: {
-    rcNumber: string
-    subsidiaryOf: string
-    czechParent: string
-  }
   nav: {
     sectors: string
     metallurgy: string
@@ -14,6 +9,7 @@ export interface TranslationDictionary {
     careers: string
     contact: string
     quoteCta: string
+    exploreSectors: string
   }
   hero: {
     eyebrow: string
@@ -21,22 +17,6 @@ export interface TranslationDictionary {
     subheadline: string
     primaryCta: string
     secondaryCta: string
-    cacLabel: string
-    corridorLabel: string
-    corridorValue: string
-    complianceLabel: string
-    complianceValue: string
-    tradeDeskTitle: string
-    corridorSubtext: string
-    originTitle: string
-    originLocation: string
-    originCompany: string
-    freightRoute: string
-    hubTitle: string
-    hubLocation: string
-    hubAddress: string
-    imageSlotLabel: string
-    imageSlotDesc: string
   }
   pillars: {
     trade: string
@@ -144,16 +124,12 @@ export interface TranslationDictionary {
     verticalsTitle: string
     headquartersTitle: string
     rightsReserved: string
+    builtBy: string
   }
 }
 
 export const translations: Record<Language, TranslationDictionary> = {
   en: {
-    topRibbon: {
-      rcNumber: 'RC-7669078',
-      subsidiaryOf: 'Subsidiary of Leseft International s.r.o.',
-      czechParent: 'Ostrava, Czech Republic • European Metallurgy & Heavy Engineering',
-    },
     nav: {
       sectors: 'Sectors',
       metallurgy: 'EU Metallurgy & Engineering',
@@ -161,32 +137,16 @@ export const translations: Record<Language, TranslationDictionary> = {
       whyPartner: 'Why Partner',
       careers: 'Careers',
       contact: 'Contact & RFQ',
-      quoteCta: 'Request a Trade Quote',
+      quoteCta: 'Request a Quote',
+      exploreSectors: 'Explore Sectors',
     },
     hero: {
       eyebrow: 'A Subsidiary of Leseft International s.r.o. (Czech Republic)',
       headline: 'Bridging European Industrial Standards with West African Markets',
       subheadline:
-        'Headquartered in Abuja, Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, EU-certified metallurgy, and high-grade agricultural commodities across Nigeria and West Africa.',
-      primaryCta: 'Request a Trade Quote',
-      secondaryCta: 'Explore Sectors & Metallurgy',
-      cacLabel: 'CAC Registration',
-      corridorLabel: 'Core Trade Corridor',
-      corridorValue: 'Ostrava, CZ ⇄ Abuja, NG',
-      complianceLabel: 'Certification',
-      complianceValue: 'EU Standards & ISO 9001',
-      tradeDeskTitle: 'Bilateral Trade & Metallurgy Portal',
-      corridorSubtext: 'Direct Czech Industrial Procurement',
-      originTitle: 'European Engineering Origin',
-      originLocation: 'Ostrava, Czech Republic',
-      originCompany: 'Leseft International s.r.o. (Metallurgy, Steel & Energy)',
-      freightRoute: 'Direct Marine Vessel & Multi-modal Freight Corridors',
-      hubTitle: 'West African Execution Hub',
-      hubLocation: 'Abuja Headquarters & Lagos Ports',
-      hubAddress: 'Plot 69, Gold Court Estate, Katampe District, FCT Abuja',
-      imageSlotLabel: 'Visual Asset Slot',
-      imageSlotDesc:
-        'Recommended file: /images/hero-b2b-trade.jpg — High-contrast documentary photo of dry port container logistics or Czech steelworks fabrication in natural light.',
+        'Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, EU-certified metallurgy, and high-grade agricultural commodities across Nigeria and West Africa.',
+      primaryCta: 'Request a Quote',
+      secondaryCta: 'Explore Sectors',
     },
     pillars: {
       trade: 'TRADE',
@@ -329,15 +289,11 @@ export const translations: Record<Language, TranslationDictionary> = {
       verticalsTitle: 'Core Verticals',
       headquartersTitle: 'Headquarters',
       rightsReserved: 'All rights reserved.',
+      builtBy: 'Built by Heritage Isaac',
     },
   },
 
   cs: {
-    topRibbon: {
-      rcNumber: 'RC-7669078',
-      subsidiaryOf: 'Dceřiná společnost Leseft International s.r.o.',
-      czechParent: 'Ostrava, Česká republika • Evropská metalurgie a těžké strojírenství',
-    },
     nav: {
       sectors: 'Sektory',
       metallurgy: 'EU Metalurgie a strojírenství',
@@ -345,32 +301,16 @@ export const translations: Record<Language, TranslationDictionary> = {
       whyPartner: 'Proč my',
       careers: 'Kariéra',
       contact: 'Kontakt a poptávka',
-      quoteCta: 'Vyžádat cenovou nabídku',
+      quoteCta: 'Vyžádat nabídku',
+      exploreSectors: 'Prozkoumat sektory',
     },
     hero: {
       eyebrow: 'Dceřiná společnost Leseft International s.r.o. (Česká republika)',
       headline: 'Propojení evropských průmyslových standardů se západoafrickými trhy',
       subheadline:
-        'Společnost Leseft Nigeria Limited se sídlem v Abuji zajišťuje spolehlivou dovozní a vývozní logistiku, solární a energetická zařízení, průmyslové stroje, certifikovanou metalurgii a vysoce kvalitní zemědělské komodity po celé Nigérii a západní Africe.',
-      primaryCta: 'Vyžádat cenovou nabídku',
-      secondaryCta: 'Prozkoumat sektory a metalurgii',
-      cacLabel: 'Registrace CAC',
-      corridorLabel: 'Klíčový obchodní koridor',
-      corridorValue: 'Ostrava, CZ ⇄ Abuja, NG',
-      complianceLabel: 'Certifikace',
-      complianceValue: 'Normy EU a ISO 9001',
-      tradeDeskTitle: 'Portál bilaterálního obchodu a metalurgie',
-      corridorSubtext: 'Přímé zajištění českého průmyslu',
-      originTitle: 'Evropský strojírenský původ',
-      originLocation: 'Ostrava, Česká republika',
-      originCompany: 'Leseft International s.r.o. (metalurgie, ocel a energetika)',
-      freightRoute: 'Přímé námořní a multimodální nákladní koridory',
-      hubTitle: 'Západoafrické realizační centrum',
-      hubLocation: 'Sídlo v Abuji a přístavy v Lagosu',
-      hubAddress: 'Plot 69, Gold Court Estate, Katampe District, FCT Abuja',
-      imageSlotLabel: 'Slot pro vizuální podklad',
-      imageSlotDesc:
-        'Doporučený soubor: /images/hero-b2b-trade.jpg — Vysoce kontrastní dokumentární fotografie přístavní logistiky nebo české ocelářské výroby v přirozeném světle.',
+        'Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, EU-certified metallurgy, and high-grade agricultural commodities across Nigeria and West Africa.',
+      primaryCta: 'Vyžádat nabídku',
+      secondaryCta: 'Prozkoumat sektory',
     },
     pillars: {
       trade: 'OBCHOD',
@@ -513,15 +453,11 @@ export const translations: Record<Language, TranslationDictionary> = {
       verticalsTitle: 'Klíčové vertikály',
       headquartersTitle: 'Sídlo společnosti',
       rightsReserved: 'Všechna práva vyhrazena.',
+      builtBy: 'Built by Heritage Isaac',
     },
   },
 
   pl: {
-    topRibbon: {
-      rcNumber: 'RC-7669078',
-      subsidiaryOf: 'Spółka zależna Leseft International s.r.o.',
-      czechParent: 'Ostrawa, Republika Czeska • Europejska metalurgia i inżynieria ciężka',
-    },
     nav: {
       sectors: 'Sektory',
       metallurgy: 'Metalurgia i Inżynieria UE',
@@ -530,31 +466,15 @@ export const translations: Record<Language, TranslationDictionary> = {
       careers: 'Kariera',
       contact: 'Kontakt i Zapytanie',
       quoteCta: 'Zapytaj o wycenę',
+      exploreSectors: 'Poznaj sektory',
     },
     hero: {
       eyebrow: 'Spółka zależna Leseft International s.r.o. (Republika Czeska)',
       headline: 'Łączenie europejskich standardów przemysłowych z rynkami Afryki Zachodniej',
       subheadline:
-        'Z siedzibą w Abudży, Leseft Nigeria Limited zapewnia niezawodną logistykę importowo-eksportową, sprzęt solarny i energetyczny, maszyny przemysłowe, certyfikowaną metalurgię oraz wysokiej klasy towary rolne w Nigerii i Afryce Zachodniej.',
-      primaryCta: 'Zapytaj o wycenę handlową',
-      secondaryCta: 'Poznaj sektory i metalurgię',
-      cacLabel: 'Rejestracja CAC',
-      corridorLabel: 'Kluczowy korytarz handlowy',
-      corridorValue: 'Ostrawa, CZ ⇄ Abudża, NG',
-      complianceLabel: 'Certyfikacja',
-      complianceValue: 'Normy UE i ISO 9001',
-      tradeDeskTitle: 'Portal Handlu Dwustronnego i Metalurgii',
-      corridorSubtext: 'Bezpośrednie zaopatrzenie przemysłu czeskiego',
-      originTitle: 'Europejskie pochodzenie inżynieryjne',
-      originLocation: 'Ostrawa, Republika Czeska',
-      originCompany: 'Leseft International s.r.o. (metalurgia, stal i energia)',
-      freightRoute: 'Bezpośrednie korytarze frachtu morskiego i multimodalnego',
-      hubTitle: 'Centrum Operacyjne w Afryce Zachodniej',
-      hubLocation: 'Siedziba w Abudży i porty w Lagos',
-      hubAddress: 'Plot 69, Gold Court Estate, Katampe District, FCT Abuja',
-      imageSlotLabel: 'Miejsce na materiał wizualny',
-      imageSlotDesc:
-        'Zalecany plik: /images/hero-b2b-trade.jpg — Zdjęcie dokumentalne logistyki kontenerowej w suchym porcie lub czeskiej produkcji stali w naturalnym oświetleniu.',
+        'Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, EU-certified metallurgy, and high-grade agricultural commodities across Nigeria and West Africa.',
+      primaryCta: 'Zapytaj o wycenę',
+      secondaryCta: 'Poznaj sektory',
     },
     pillars: {
       trade: 'HANDEL',
@@ -697,6 +617,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       verticalsTitle: 'Kluczowe wertykały',
       headquartersTitle: 'Siedziba główna',
       rightsReserved: 'Wszelkie prawa zastrzeżone.',
+      builtBy: 'Built by Heritage Isaac',
     },
   },
 }

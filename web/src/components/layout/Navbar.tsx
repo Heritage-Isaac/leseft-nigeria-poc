@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { Menu, X, Phone, ArrowRight, Globe } from 'lucide-react'
+import { ChevronDown, ArrowRight, X, Phone, Mail, MapPin } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
 import { Language } from '@/lib/i18n'
 
@@ -17,8 +17,10 @@ export function Navbar({
   phone = '+234 809 533 2333',
   email = 'info@leseft.cz',
 }: NavbarProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [navOpen, setNavOpen] = useState(false)
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false)
   const { lang, setLang, t } = useLanguage()
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const languages: { code: Language; label: string; full: string }[] = [
     { code: 'en', label: 'EN', full: 'English' },
@@ -26,73 +28,40 @@ export function Navbar({
     { code: 'pl', label: 'PL', full: 'Polski' },
   ]
 
+  const currentLangObj = languages.find((l) => l.code === lang) || languages[0]
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setLangDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Lock body scroll when overlay nav is open
+  useEffect(() => {
+    if (navOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [navOpen])
+
   const navLinks = [
-    { label: t.nav.sectors, href: '#sectors' },
-    { label: t.nav.metallurgy, href: '#metallurgy' },
-    { label: t.nav.commodities, href: '#commodities' },
-    { label: t.nav.whyPartner, href: '#why-partner' },
-    { label: t.nav.careers, href: '#careers' },
-    { label: t.nav.contact, href: '#quote' },
+    { num: '01', label: t.nav.sectors, href: '#sectors', desc: 'Solar, Industrial & Commodities Verticals' },
+    { num: '02', label: t.nav.metallurgy, href: '#metallurgy', desc: 'Steel Ingots, Forgings, Castings & Energy Equipment' },
+    { num: '03', label: t.nav.commodities, href: '#commodities', desc: 'Physical Commodities & Specification Sheets' },
+    { num: '04', label: t.nav.whyPartner, href: '#why-partner', desc: 'Bilateral Trust, EU Standards & Execution' },
+    { num: '05', label: t.nav.careers, href: '#careers', desc: 'Abuja Operations & Analyst Openings' },
+    { num: '06', label: t.nav.contact, href: '#quote', desc: 'Direct B2B Procurement Desk & RFQ' },
   ]
 
   return (
-    <header className="sticky top-0 z-40 bg-white">
-      {/* Top Corporate Dispatch Ribbon in Leseft Charcoal #414042 */}
-      <div className="bg-[#414042] text-white text-[11px] py-1.5 px-4 sm:px-6 lg:px-8 border-b border-[#2A2A2C]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1.5">
-          <div className="flex items-center gap-2.5">
-            <span className="font-mono font-bold text-[#27AAE1] uppercase tracking-wider">
-              {t.topRibbon.rcNumber}
-            </span>
-            <span className="text-[#888888]">•</span>
-            <span className="text-[#E0E0E0]">
-              {t.topRibbon.subsidiaryOf}{' '}
-              <span className="text-[#B0B0B0] hidden md:inline">
-                ({t.topRibbon.czechParent})
-              </span>
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4 text-[#C0C0C0]">
-            <a
-              href={`tel:${phone.replace(/\s+/g, '')}`}
-              className="hover:text-white transition-colors flex items-center gap-1.5 font-mono text-[11px]"
-            >
-              <Phone className="w-3 h-3 text-[#27AAE1]" />
-              <span>{phone}</span>
-            </a>
-            <span className="hidden sm:inline text-white/20">|</span>
-            <a
-              href={`mailto:${email}`}
-              className="hidden sm:inline hover:text-white transition-colors font-mono text-[11px]"
-            >
-              {email}
-            </a>
-
-            {/* Language Switcher in Header */}
-            <div className="flex items-center gap-1 pl-2 border-l border-white/20">
-              <Globe className="w-3 h-3 text-[#27AAE1] mr-0.5" />
-              {languages.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => setLang(l.code)}
-                  title={l.full}
-                  className={`px-1.5 py-0.5 text-[10px] font-bold rounded-xs transition-all ${
-                    lang === l.code
-                      ? 'bg-[#1C75BC] text-white shadow-xs'
-                      : 'text-[#B0B0B0] hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  {l.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Navigation Bar with 2px Leseft Blue Bottom Border */}
-      <div className="border-b-2 border-[#1C75BC] bg-white">
+    <>
+      <header className="sticky top-0 z-40 bg-white border-b-2 border-[#1C75BC]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Corporate Brand Identity */}
@@ -111,7 +80,7 @@ export function Navbar({
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden xl:flex items-center gap-7">
+            <nav className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
@@ -123,48 +92,194 @@ export function Navbar({
               ))}
             </nav>
 
-            {/* Action CTA & Mobile Lang Buttons */}
-            <div className="hidden sm:flex items-center gap-3">
+            {/* Right Controls: Reduced Button + Language Dropdown + Decorative Hamburger */}
+            <div className="flex items-center gap-3">
+              {/* Reduced Button: Request a Quote */}
               <a
                 href="#quote"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold text-white bg-[#1C75BC] hover:bg-[#145A91] rounded-xs transition-all shadow-xs"
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-[#1C75BC] hover:bg-[#145A91] rounded-xs transition-all shadow-xs"
               >
                 <span>{t.nav.quoteCta}</span>
                 <ArrowRight className="w-3.5 h-3.5 text-white" />
               </a>
-            </div>
 
-            {/* Mobile Menu Toggle Button */}
-            <div className="flex xl:hidden">
+              {/* Language Dropdown beside Hamburger */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-bold rounded-xs border border-[#E1E1E1] bg-[#F7F9FB] hover:border-[#1C75BC] text-[#414042] transition-colors"
+                  aria-label="Select language"
+                >
+                  <span className="text-[#1C75BC] font-mono">{currentLangObj.label}</span>
+                  <ChevronDown className={`w-3 h-3 text-[#7A7A7D] transition-transform ${langDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {langDropdownOpen && (
+                  <div className="absolute right-0 mt-1.5 w-32 bg-white border border-[#E1E1E1] rounded-xs shadow-md py-1 z-50">
+                    {languages.map((l) => (
+                      <button
+                        key={l.code}
+                        onClick={() => {
+                          setLang(l.code)
+                          setLangDropdownOpen(false)
+                        }}
+                        className={`w-full text-left px-3 py-1.5 text-xs flex items-center justify-between font-semibold transition-colors ${
+                          lang === l.code
+                            ? 'bg-[#F0F7FC] text-[#1C75BC]'
+                            : 'text-[#414042] hover:bg-[#F7F9FB]'
+                        }`}
+                      >
+                        <span>{l.full}</span>
+                        <span className="text-[10px] font-mono text-[#7A7A7D]">{l.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Decorative Hamburger Button (Awwwards Webflow Inspired) */}
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-xs text-[#414042] hover:bg-[#F7F9FB] border border-[#E1E1E1]"
-                aria-expanded={mobileMenuOpen}
-                aria-label="Toggle navigation menu"
+                onClick={() => setNavOpen(!navOpen)}
+                className="relative w-10 h-10 rounded-xs bg-[#414042] hover:bg-[#2A2A2C] border border-[#2A2A2C] flex flex-col items-center justify-center gap-1.5 transition-all group"
+                aria-label="Toggle navigation drawer"
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                <span
+                  className={`w-5 h-0.5 bg-white transition-all duration-300 ${
+                    navOpen ? 'rotate-45 translate-y-2 bg-[#27AAE1]' : 'group-hover:w-4'
+                  }`}
+                />
+                <span
+                  className={`w-5 h-0.5 bg-white transition-all duration-300 ${
+                    navOpen ? 'opacity-0' : 'group-hover:bg-[#27AAE1]'
+                  }`}
+                />
+                <span
+                  className={`w-5 h-0.5 bg-white transition-all duration-300 ${
+                    navOpen ? '-rotate-45 -translate-y-2 bg-[#27AAE1]' : 'group-hover:w-4'
+                  }`}
+                />
               </button>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile Menu Drawer */}
-      {mobileMenuOpen && (
-        <div className="xl:hidden border-b border-[#E1E1E1] bg-white px-4 pt-3 pb-6 space-y-3">
-          {/* Mobile Language Switcher */}
-          <div className="flex items-center justify-between pb-3 border-b border-[#E1E1E1]">
-            <span className="text-xs text-[#7A7A7D] font-semibold">Language / Jazyk / Język:</span>
-            <div className="flex items-center gap-1.5">
+      {/* Decorative Awwwards-style Overlay Menu Drawer */}
+      {navOpen && (
+        <div className="fixed inset-0 z-50 bg-[#414042] text-white flex flex-col justify-between overflow-y-auto animate-fadeIn">
+          {/* Top Bar inside Overlay */}
+          <div className="border-b border-white/10 px-6 sm:px-12 py-6 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xs bg-[#1C75BC] text-white flex items-center justify-center font-bold text-xs">
+                LS
+              </div>
+              <span className="font-bold text-base text-white tracking-tight">
+                {companyName}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <span className="text-xs text-[#A0A0A5] hidden sm:inline font-mono">
+                Ostrava, CZ ⇄ Abuja, NG
+              </span>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setNavOpen(false)}
+                className="w-10 h-10 rounded-xs bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center transition-colors"
+                aria-label="Close menu"
+              >
+                <X className="w-5 h-5 text-white" />
+              </button>
+            </div>
+          </div>
+
+          {/* Main Navigation Links with Editorial Numbers */}
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 py-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-8 space-y-3">
+              <span className="text-[10px] font-mono font-bold tracking-widest text-[#27AAE1] uppercase block mb-4">
+                Directory / Rejstřík / Katalog
+              </span>
+
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setNavOpen(false)}
+                  className="group flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 py-3 border-b border-white/10 hover:border-[#1C75BC] transition-all"
+                >
+                  <span className="text-xs font-mono text-[#27AAE1] font-bold group-hover:translate-x-1 transition-transform">
+                    {link.num}
+                  </span>
+                  <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-white group-hover:text-[#27AAE1] tracking-tight transition-colors">
+                    {link.label}
+                  </span>
+                  <span className="text-xs text-[#A0A0A5] sm:ml-auto group-hover:text-white transition-colors">
+                    {link.desc}
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            {/* Side Card inside Menu */}
+            <div className="lg:col-span-4 bg-[#2A2A2C] border border-white/10 rounded-xs p-6 space-y-6">
+              <div className="space-y-2 border-b border-white/10 pb-4">
+                <span className="text-[10px] font-mono text-[#27AAE1] uppercase font-bold tracking-wider">
+                  Direct Inquiries
+                </span>
+                <h4 className="text-lg font-bold text-white tracking-tight">
+                  Abuja Operations Hub
+                </h4>
+                <p className="text-xs text-[#C9D1D9] leading-relaxed">
+                  Connect with our local trade desk and European technical coordinators for RFQs and product specifications.
+                </p>
+              </div>
+
+              <div className="space-y-3 text-xs text-[#C9D1D9]">
+                <div className="flex items-center gap-2">
+                  <Phone className="w-3.5 h-3.5 text-[#27AAE1]" />
+                  <a href={`tel:${phone.replace(/\s+/g, '')}`} className="font-mono hover:text-white">
+                    {phone}
+                  </a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="w-3.5 h-3.5 text-[#27AAE1]" />
+                  <a href={`mailto:${email}`} className="font-mono hover:text-white">
+                    {email}
+                  </a>
+                </div>
+                <div className="flex items-start gap-2 pt-1">
+                  <MapPin className="w-3.5 h-3.5 text-[#27AAE1] shrink-0 mt-0.5" />
+                  <span className="text-[11px] leading-snug">Plot 69, Katampe District, Abuja FCT</span>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <a
+                  href="#quote"
+                  onClick={() => setNavOpen(false)}
+                  className="w-full py-2.5 px-4 text-xs font-bold text-white bg-[#1C75BC] hover:bg-[#145A91] rounded-xs transition-colors flex items-center justify-center gap-2 shadow-xs"
+                >
+                  <span>{t.nav.quoteCta}</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Bar inside Overlay */}
+          <div className="border-t border-white/10 px-6 sm:px-12 py-4 flex flex-col sm:flex-row items-center justify-between text-xs text-[#A0A0A5] gap-3">
+            <p>© {new Date().getFullYear()} {companyName}. Built by Heritage Isaac</p>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px]">Language:</span>
               {languages.map((l) => (
                 <button
                   key={l.code}
                   onClick={() => setLang(l.code)}
-                  className={`px-2.5 py-1 text-xs font-bold rounded-xs transition-all ${
-                    lang === l.code
-                      ? 'bg-[#1C75BC] text-white'
-                      : 'bg-[#F7F9FB] text-[#414042] border border-[#E1E1E1]'
+                  className={`px-2 py-0.5 rounded-xs text-[10px] font-bold ${
+                    lang === l.code ? 'bg-[#1C75BC] text-white' : 'text-[#C9D1D9] hover:text-white'
                   }`}
                 >
                   {l.full}
@@ -172,30 +287,8 @@ export function Navbar({
               ))}
             </div>
           </div>
-
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 text-xs font-semibold uppercase tracking-wider text-[#414042] hover:bg-[#F7F9FB] rounded-xs"
-            >
-              {link.label}
-            </a>
-          ))}
-
-          <div className="pt-3 border-t border-[#E1E1E1]">
-            <a
-              href="#quote"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 w-full px-4 py-3 text-xs font-bold text-white bg-[#1C75BC] rounded-xs"
-            >
-              <span>{t.nav.quoteCta}</span>
-              <ArrowRight className="w-3.5 h-3.5 text-white" />
-            </a>
-          </div>
         </div>
       )}
-    </header>
+    </>
   )
 }

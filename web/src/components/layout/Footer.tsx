@@ -156,7 +156,10 @@ export function Footer({ settings = fallbackSiteSettings, companyName }: FooterP
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#A0A0A5]">
-          <p>© {new Date().getFullYear()} {activeSettings.companyName}. {t.footer.rightsReserved}</p>
+          <p>
+            © {new Date().getFullYear()} {activeSettings.companyName}. {t.footer.rightsReserved}{' '}
+            <span className="text-[#27AAE1] font-medium ml-1">Built by Heritage Isaac</span>
+          </p>
           <p className="flex items-center gap-3">
             <span>Trade</span>
             <span>•</span>
