@@ -34,10 +34,10 @@ export function LiveWebsiteFrame({ onReloadRequested }: LiveWebsiteFrameProps) {
 
         <div className="flex items-center gap-2">
           {/* Viewport Switcher */}
-          <div className="inline-flex rounded-md border border-[#E5E7EB] bg-[#F1F3F5] p-0.5">
+          <div className="inline-flex rounded-xs border border-[#E5E7EB] bg-[#F1F3F5] p-0.5">
             <button
               onClick={() => setViewport('desktop')}
-              className={`px-2.5 py-1 text-xs rounded transition-all ${
+              className={`px-2.5 py-1 text-xs rounded-xs transition-all ${
                 viewport === 'desktop'
                   ? 'bg-white text-[#17191C] font-semibold shadow-xs'
                   : 'text-[#626B75] hover:text-[#17191C]'
@@ -49,7 +49,7 @@ export function LiveWebsiteFrame({ onReloadRequested }: LiveWebsiteFrameProps) {
             </button>
             <button
               onClick={() => setViewport('tablet')}
-              className={`px-2.5 py-1 text-xs rounded transition-all ${
+              className={`px-2.5 py-1 text-xs rounded-xs transition-all ${
                 viewport === 'tablet'
                   ? 'bg-white text-[#17191C] font-semibold shadow-xs'
                   : 'text-[#626B75] hover:text-[#17191C]'
@@ -61,7 +61,7 @@ export function LiveWebsiteFrame({ onReloadRequested }: LiveWebsiteFrameProps) {
             </button>
             <button
               onClick={() => setViewport('mobile')}
-              className={`px-2.5 py-1 text-xs rounded transition-all ${
+              className={`px-2.5 py-1 text-xs rounded-xs transition-all ${
                 viewport === 'mobile'
                   ? 'bg-white text-[#17191C] font-semibold shadow-xs'
                   : 'text-[#626B75] hover:text-[#17191C]'
@@ -76,7 +76,7 @@ export function LiveWebsiteFrame({ onReloadRequested }: LiveWebsiteFrameProps) {
           {/* Refresh Frame */}
           <button
             onClick={handleRefresh}
-            className="p-1.5 rounded-md border border-[#E5E7EB] text-[#626B75] hover:text-[#17191C] hover:bg-[#F1F3F5] transition-colors"
+            className="p-1.5 rounded-xs border border-[#E5E7EB] text-[#626B75] hover:text-[#17191C] hover:bg-[#F1F3F5] transition-colors"
             title="Reload live frame"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -87,7 +87,7 @@ export function LiveWebsiteFrame({ onReloadRequested }: LiveWebsiteFrameProps) {
             href="/"
             target="_blank"
             rel="noreferrer"
-            className="p-1.5 rounded-md border border-[#E5E7EB] text-[#626B75] hover:text-[#17191C] hover:bg-[#F1F3F5] transition-colors"
+            className="p-1.5 rounded-xs border border-[#E5E7EB] text-[#626B75] hover:text-[#17191C] hover:bg-[#F1F3F5] transition-colors"
             title="Open in new window"
           >
             <ExternalLink className="w-3.5 h-3.5" />
@@ -98,7 +98,7 @@ export function LiveWebsiteFrame({ onReloadRequested }: LiveWebsiteFrameProps) {
       {/* Frame Canvas Wrapper */}
       <div className="flex-1 overflow-auto p-4 sm:p-6 flex justify-center bg-[#F1F3F5]/60">
         <div
-          className={`${viewportWidth} h-full bg-white rounded-lg border border-[#E5E7EB] shadow-xs flex flex-col overflow-hidden transition-all duration-200`}
+          className={`${viewportWidth} h-full bg-white rounded-xs border border-[#E5E7EB] shadow-xs flex flex-col overflow-hidden transition-all duration-200`}
         >
           {/* Subtle Frame URL Bar */}
           <div className="bg-[#FAFAFA] border-b border-[#E5E7EB] px-3 py-1.5 flex items-center justify-between text-xs text-[#89919A]">

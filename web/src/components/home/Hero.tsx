@@ -16,8 +16,8 @@ export function Hero({ profile }: { profile: CompanyProfile }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Typography & Corporate Information */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-slate-200 text-xs font-semibold text-slate-800 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-sky-600"></span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xs bg-white border border-slate-200 text-xs font-semibold text-slate-800 shadow-xs">
+              <span className="w-2 h-2 rounded-xs bg-sky-600"></span>
               <span>Sanity CMS + Next.js Integration POC</span>
             </div>
 
@@ -56,19 +56,21 @@ export function Hero({ profile }: { profile: CompanyProfile }) {
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <a
                 href="#recent-projects"
-                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg shadow-xs hover:shadow-sm transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-xs shadow-xs hover:shadow-sm transition-all"
               >
                 <span>View Recent Projects</span>
                 <ArrowDown className="w-4 h-4" />
               </a>
 
-              <Link
-                href="/studio"
-                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-slate-800 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg transition-all shadow-xs"
+              <a
+                href="http://localhost:3333"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-slate-800 bg-white hover:bg-slate-100 border border-slate-300 rounded-xs transition-all shadow-xs"
               >
                 <span>Edit Content in Studio</span>
                 <ArrowUpRight className="w-4 h-4 text-slate-500" />
-              </Link>
+              </a>
             </div>
           </div>
 

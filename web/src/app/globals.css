@@ -8,6 +8,15 @@
   --color-brand-accent-hover: #0369a1;
   --color-surface-subtle: #f8fafc;
   --color-border-subtle: #e2e8f0;
+
+  /* Almost-sharp corporate precision radius scale (2px - 4px) */
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+  --radius-2xl: 5px;
+  --radius-3xl: 6px;
 }
 
 @layer base {

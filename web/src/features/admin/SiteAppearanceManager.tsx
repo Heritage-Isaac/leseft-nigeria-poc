@@ -67,7 +67,7 @@ export function SiteAppearanceManager({ onApplyStyle }: SiteAppearanceManagerPro
       </div>
 
       {savedNotice && (
-        <div className="p-3 rounded-lg bg-[#E6F4EA] border border-[#B7E1CD] text-[#137333] text-xs flex items-center gap-2">
+        <div className="p-3 rounded-xs bg-[#E6F4EA] border border-[#B7E1CD] text-[#137333] text-xs flex items-center gap-2">
           <Check className="w-4 h-4" />
           <span>Appearance preferences applied to live preview.</span>
         </div>
@@ -82,15 +82,15 @@ export function SiteAppearanceManager({ onApplyStyle }: SiteAppearanceManagerPro
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {[
             { id: 'sharp', label: 'Sharp', spec: '0px (Corporate)', class: 'rounded-none' },
-            { id: 'subtle', label: 'Subtle', spec: '8px (Leye default)', class: 'rounded-lg' },
-            { id: 'rounded', label: 'Rounded', spec: '16px (Soft)', class: 'rounded-2xl' },
+            { id: 'subtle', label: 'Almost Sharp (Active)', spec: '3px (Leye precision)', class: 'rounded-xs' },
+            { id: 'rounded', label: 'Soft', spec: '6px', class: 'rounded-sm' },
             { id: 'pill', label: 'Pill', spec: 'Full radius', class: 'rounded-full' },
           ].map((item) => (
             <button
               key={item.id}
               type="button"
               onClick={() => setRadius(item.id as ButtonRadius)}
-              className={`p-3 text-left border rounded-lg transition-all ${
+              className={`p-3 text-left border rounded-xs transition-all ${
                 radius === item.id
                   ? 'border-[#2563EB] bg-[#EAF1FF] text-[#17191C] font-semibold'
                   : 'border-[#E5E7EB] bg-white text-[#626B75] hover:border-[#D1D5DB]'
@@ -141,13 +141,13 @@ export function SiteAppearanceManager({ onApplyStyle }: SiteAppearanceManagerPro
               key={item.id}
               type="button"
               onClick={() => setTheme(item.id as ColorTheme)}
-              className={`p-3 text-left border rounded-lg flex items-center gap-3 transition-all ${
+              className={`p-3 text-left border rounded-xs flex items-center gap-3 transition-all ${
                 theme === item.id
                   ? 'border-[#2563EB] bg-[#EAF1FF] text-[#17191C] font-semibold'
                   : 'border-[#E5E7EB] bg-white text-[#626B75] hover:border-[#D1D5DB]'
               }`}
             >
-              <div className={`w-6 h-6 rounded-md ${item.swatch} shrink-0 border border-black/10`} />
+              <div className={`w-6 h-6 rounded-xs ${item.swatch} shrink-0 border border-black/10`} />
               <div>
                 <p className="text-xs font-semibold text-[#17191C]">{item.label}</p>
                 <p className="text-[11px] text-[#89919A]">{item.desc}</p>
@@ -183,7 +183,7 @@ export function SiteAppearanceManager({ onApplyStyle }: SiteAppearanceManagerPro
           ].map((sec) => (
             <div
               key={sec.key}
-              className="p-3 rounded-lg border border-[#E5E7EB] bg-white flex items-center justify-between"
+              className="p-3 rounded-xs border border-[#E5E7EB] bg-white flex items-center justify-between"
             >
               <div>
                 <p className="text-xs font-semibold text-[#17191C]">{sec.label}</p>
@@ -197,7 +197,7 @@ export function SiteAppearanceManager({ onApplyStyle }: SiteAppearanceManagerPro
                     [sec.key]: !prev[sec.key],
                   }))
                 }
-                className={`px-3 py-1 text-xs font-semibold rounded-md border flex items-center gap-1.5 transition-all ${
+                className={`px-3 py-1 text-xs font-semibold rounded-xs border flex items-center gap-1.5 transition-all ${
                   hiddenElements[sec.key]
                     ? 'bg-[#FCE8E6] text-[#C5221F] border-[#F5C2C7]'
                     : 'bg-[#E6F4EA] text-[#137333] border-[#B7E1CD]'
@@ -225,7 +225,7 @@ export function SiteAppearanceManager({ onApplyStyle }: SiteAppearanceManagerPro
         <button
           type="button"
           onClick={handleApply}
-          className="px-4 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold rounded-lg transition-colors"
+          className="px-4 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold rounded-xs transition-colors"
         >
           Apply Changes
         </button>

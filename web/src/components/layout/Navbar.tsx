@@ -21,7 +21,7 @@ export function Navbar({ companyName = 'LeSeft Nigeria Limited' }: { companyName
         <div className="flex items-center justify-between h-20">
           {/* Corporate Brand Identity */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-lg tracking-tight shadow-sm group-hover:bg-sky-700 transition-colors">
+            <div className="w-10 h-10 rounded-xs bg-slate-900 text-white flex items-center justify-center font-bold text-lg tracking-tight shadow-sm group-hover:bg-sky-700 transition-colors">
               LS
             </div>
             <div className="flex flex-col">
@@ -51,7 +51,7 @@ export function Navbar({ companyName = 'LeSeft Nigeria Limited' }: { companyName
           <div className="hidden md:flex items-center gap-3">
             <Link
               href="/admin"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 rounded-lg transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 rounded-xs transition-all shadow-xs"
             >
               <span>Admin Suite</span>
             </Link>
@@ -59,7 +59,7 @@ export function Navbar({ companyName = 'LeSeft Nigeria Limited' }: { companyName
               href="http://localhost:3333"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-xs transition-all shadow-xs"
             >
               <span>Sanity Studio</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-slate-500" />

@@ -36,9 +36,9 @@ export function ProjectCard({ project }: { project: Project }) {
         />
         <div className="absolute top-3 right-3">
           <span
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${statusConfig.badgeBg}`}
+            className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs text-[11px] font-semibold border ${statusConfig.badgeBg}`}
           >
-            <span className={`w-1.5 h-1.5 rounded-full ${statusConfig.dot}`} />
+            <span className={`w-1.5 h-1.5 rounded-xs ${statusConfig.dot}`} />
             {statusConfig.label}
           </span>
         </div>
