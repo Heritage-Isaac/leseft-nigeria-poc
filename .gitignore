@@ -1,0 +1,29 @@
+# dependencies
+node_modules
+*/node_modules
+
+# build outputs
+.next
+*/.next
+dist
+*/dist
+out
+*/out
+
+# environment variables
+.env*.local
+.env
+*/.env*.local
+*/.env
+!.env.example
+!*/.env.example
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+
+# system
+.DS_Store
+Thumbs.db
+.sanity
+*/.sanity

@@ -1,0 +1,12 @@
+{
+  "name": "leseft-nigeria-poc-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "dev:web": "npm --prefix web run dev",
+    "dev:studio": "npm --prefix studio run dev",
+    "build:web": "npm --prefix web run build",
+    "build:studio": "npm --prefix studio run build"
+  }
+}

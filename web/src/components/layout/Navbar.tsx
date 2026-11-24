@@ -1,0 +1,102 @@
+'use client'
+
+import React, { useState } from 'react'
+import Link from 'next/link'
+import { Menu, X, ArrowUpRight } from 'lucide-react'
+
+export function Navbar({ companyName = 'LeSeft Nigeria Limited' }: { companyName?: string }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const navLinks = [
+    { label: 'Home', href: '/' },
+    { label: 'Company Profile', href: '/about' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'Admin & Audit', href: '/admin' },
+    { label: 'Contact RFP', href: '/contact' },
+  ]
+
+  return (
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-200/80 transition-all">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* Corporate Brand Identity */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-lg tracking-tight shadow-sm group-hover:bg-sky-700 transition-colors">
+              LS
+            </div>
+            <div className="flex flex-col">
+              <span className="font-bold text-lg text-slate-900 tracking-tight leading-none group-hover:text-sky-700 transition-colors">
+                {companyName}
+              </span>
+              <span className="text-[11px] font-medium text-slate-500 uppercase tracking-widest mt-1">
+                Corporate & Infrastructure Solutions
+              </span>
+            </div>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-7">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-xs font-semibold uppercase tracking-wider text-slate-600 hover:text-slate-900 transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Action Button: Sanity Studio Access */}
+          <div className="hidden md:flex items-center gap-4">
+            <Link
+              href="/studio"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg transition-all shadow-xs"
+            >
+              <span>Sanity Studio</span>
+              <ArrowUpRight className="w-4 h-4 text-slate-500" />
+            </Link>
+          </div>
+
+          {/* Mobile Hamburger Button */}
+          <div className="flex md:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-hidden"
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-6 space-y-3">
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="block px-3 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-md"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="pt-2 border-t border-slate-100">
+            <Link
+              href="/studio"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between w-full px-4 py-2.5 text-xs font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-lg"
+            >
+              <span>Manage Content in Sanity Studio</span>
+              <ArrowUpRight className="w-4 h-4 text-slate-500" />
+            </Link>
+          </div>
+        </div>
+      )}
+    </header>
+  )
+}
