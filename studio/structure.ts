@@ -2,22 +2,50 @@ import type { StructureResolver } from 'sanity/structure'
 
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title('LeSeft Nigeria Content')
+    .title('LeSeft Nigeria')
     .items([
-      // Singleton Company Profile
       S.listItem()
-        .title('Company Profile')
-        .id('companyProfile')
+        .title('Website Content')
+        .id('websiteContent')
         .child(
-          S.document()
-            .schemaType('companyProfile')
-            .documentId('companyProfile')
-            .title('Company Profile')
+          S.list()
+            .title('Website Content')
+            .items([
+              S.listItem()
+                .title('Site Settings')
+                .id('siteSettings')
+                .child(
+                  S.document()
+                    .schemaType('siteSettings')
+                    .documentId('siteSettings')
+                    .title('Site Settings')
+                ),
+              S.listItem()
+                .title('Company Profile')
+                .id('companyProfile')
+                .child(
+                  S.document()
+                    .schemaType('companyProfile')
+                    .documentId('companyProfile')
+                    .title('Company Profile')
+                ),
+              S.divider(),
+              S.documentTypeListItem('sector').title('Business Sectors'),
+              S.documentTypeListItem('commodity').title('Commodities & Hardware'),
+              S.documentTypeListItem('project').title('Projects & Services'),
+              S.documentTypeListItem('careerListing').title('Careers'),
+            ])
         ),
       S.divider(),
-      // Projects Collection
-      S.documentTypeListItem('project').title('Corporate Projects'),
-      S.divider(),
-      // Email Campaigns & Drafts Collection
-      S.documentTypeListItem('emailDraft').title('Email Campaigns & Drafts'),
+      S.listItem()
+        .title('Operations')
+        .id('operations')
+        .child(
+          S.list()
+            .title('Operations')
+            .items([
+              S.documentTypeListItem('tradeInquiry').title('Trade Inquiries'),
+              S.documentTypeListItem('emailDraft').title('Email Campaigns & Drafts'),
+            ])
+        ),
     ])

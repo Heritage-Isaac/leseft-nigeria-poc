@@ -1,7 +1,16 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import type { IdentifiedSanityDocumentStub } from '@sanity/client'
 import { writeClient } from '@/sanity/lib/write-client'
+import {
+  fallbackCareerListings,
+  fallbackCommodities,
+  fallbackCompanyProfile,
+  fallbackProjects,
+  fallbackSectors,
+  fallbackSiteSettings,
+} from '@/sanity/lib/client'
 
 export interface UpdateSiteSettingsInput {
   companyName: string
@@ -25,6 +34,86 @@ export interface UpdateSiteSettingsInput {
   heroPrimaryCtaHref?: string
   heroSecondaryCtaText?: string
   heroSecondaryCtaHref?: string
+}
+
+export async function seedMissingWebsiteContent(): Promise<
+  | { success: true; createdCount: number; existingCount: number }
+  | { success: false; error: string }
+> {
+  if (!process.env.SANITY_API_WRITE_TOKEN) {
+    return {
+      success: false,
+      error:
+        'Add SANITY_API_WRITE_TOKEN to the web app environment to initialize CMS content. Do not commit the token.',
+    }
+  }
+
+  try {
+    const seedDocuments: IdentifiedSanityDocumentStub[] = [
+      { ...fallbackSiteSettings, _id: 'siteSettings', _type: 'siteSettings' },
+      { ...fallbackCompanyProfile, _id: 'companyProfile', _type: 'companyProfile' },
+      ...fallbackSectors.map((document) => ({ ...document, _type: 'sector' })),
+      ...fallbackCommodities.map((document) => ({ ...document, _type: 'commodity' })),
+      ...fallbackCareerListings.map((document) => ({ ...document, _type: 'careerListing' })),
+      ...fallbackProjects.map((document) => ({ ...document, _type: 'project' })),
+    ]
+
+    const existingDocuments = await writeClient.fetch<
+      Array<{
+        _id: string
+        _type: string
+        slug?: string
+        name?: string
+      }>
+    >(
+      `*[_type in ["siteSettings", "companyProfile", "sector", "commodity", "careerListing", "project"]]{
+        _id,
+        _type,
+        "slug": slug.current,
+        name
+      }`
+    )
+
+    const missingDocuments = seedDocuments.filter((document) => {
+      if (existingDocuments.some((existing) => existing._id === document._id)) return false
+
+      return !existingDocuments.some((existing) => {
+        if (existing._type !== document._type) return false
+        if (document._type === 'siteSettings' || document._type === 'companyProfile') return true
+
+        const documentSlug =
+          'slug' in document && typeof document.slug === 'object'
+            ? document.slug.current
+            : undefined
+        if (documentSlug && existing.slug === documentSlug) return true
+
+        const documentName = 'name' in document ? document.name : undefined
+        return document._type === 'commodity' && existing.name === documentName
+      })
+    })
+
+    if (missingDocuments.length > 0) {
+      const transaction = writeClient.transaction()
+      missingDocuments.forEach((document) => transaction.createIfNotExists(document))
+      await transaction.commit({ autoGenerateArrayKeys: true })
+    }
+
+    revalidatePath('/')
+    revalidatePath('/about')
+    revalidatePath('/projects')
+    revalidatePath('/admin')
+
+    return {
+      success: true,
+      createdCount: missingDocuments.length,
+      existingCount: seedDocuments.length - missingDocuments.length,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to initialize website content.',
+    }
+  }
 }
 
 export async function uploadImageToSanity(formData: FormData) {

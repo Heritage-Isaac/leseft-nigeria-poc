@@ -16,6 +16,7 @@ import {
   Briefcase,
   ShieldCheck,
 } from 'lucide-react'
+import { ContentSetupManager } from './ContentSetupManager'
 import { LiveWebsiteFrame } from './LiveWebsiteFrame'
 import { CompanyProfileManager } from './CompanyProfileManager'
 import { CommoditiesManager } from './CommoditiesManager'
@@ -40,7 +41,7 @@ export function AdminSuite({
   initialCareers = [],
 }: AdminSuiteProps) {
   const [activeTab, setActiveTab] = useState<
-    'preview' | 'profile' | 'commodities' | 'careers' | 'appearance' | 'analytics' | 'audit' | 'deployment'
+    'preview' | 'profile' | 'commodities' | 'careers' | 'content' | 'appearance' | 'analytics' | 'audit' | 'deployment'
   >('preview')
 
   const [refreshTrigger, setRefreshTrigger] = useState(0)
@@ -96,6 +97,11 @@ export function AdminSuite({
                 id: 'careers',
                 label: 'Careers & Hiring',
                 icon: Briefcase,
+              },
+              {
+                id: 'content',
+                label: 'Website Content',
+                icon: Database,
               },
               {
                 id: 'appearance',
@@ -185,6 +191,8 @@ export function AdminSuite({
                 ? 'Physical Trade Desk & Stock'
                 : activeTab === 'careers'
                 ? 'Career Postings (Abuja)'
+                : activeTab === 'content'
+                ? 'Website Content'
                 : activeTab === 'appearance'
                 ? 'Site Appearance & Geometry'
                 : activeTab === 'analytics'
@@ -254,6 +262,14 @@ export function AdminSuite({
                   initialCareers={initialCareers}
                   onSaved={handleDocumentSaved}
                 />
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'content' && (
+            <div className="flex-1 overflow-y-auto p-6 sm:p-8 bg-[#F7F8FA]">
+              <div className="mx-auto max-w-3xl rounded-xs border border-[#E5E7EB] bg-white p-6 shadow-xs sm:p-8">
+                <ContentSetupManager />
               </div>
             </div>
           )}
