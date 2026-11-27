@@ -43,11 +43,7 @@ export interface SiteSettings {
   headquartersAddress: string
   contactPhone: string
   contactEmail: string
-  parentCompanyName: string
-  parentCompanyLocation: string
-  parentCompanyUrl: string
   fourPillars: string[]
-  heroEyebrow: string
   heroHeadline: string
   heroSubheadline: string
   navLogo?: SanityImageReference

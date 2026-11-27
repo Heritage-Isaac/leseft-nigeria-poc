@@ -48,35 +48,11 @@ export const siteSettings = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'parentCompanyName',
-      title: 'Parent Company Name',
-      type: 'string',
-      initialValue: 'Leseft International s.r.o.',
-    }),
-    defineField({
-      name: 'parentCompanyLocation',
-      title: 'Parent Company Location',
-      type: 'string',
-      initialValue: 'Ostrava, Czech Republic',
-    }),
-    defineField({
-      name: 'parentCompanyUrl',
-      title: 'Parent Company Website',
-      type: 'url',
-      initialValue: 'https://www.leseft.cz/en/',
-    }),
-    defineField({
       name: 'fourPillars',
       title: 'Four Core Brand Pillars',
       type: 'array',
       of: [{ type: 'string' }],
       initialValue: ['Trade', 'Energy', 'Industry', 'West Africa'],
-    }),
-    defineField({
-      name: 'heroEyebrow',
-      title: 'Hero Eyebrow Text',
-      type: 'string',
-      initialValue: 'A Subsidiary of Leseft International s.r.o. (Czech Republic)',
     }),
     defineField({
       name: 'heroHeadline',

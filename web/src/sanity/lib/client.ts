@@ -29,11 +29,7 @@ export const fallbackSiteSettings: SiteSettings = {
   headquartersAddress: 'Plot 69, Gold Court Estate Street, Katampe District, FCT Abuja',
   contactPhone: '+234 809 533 2333',
   contactEmail: 'info@leseft.cz',
-  parentCompanyName: 'Leseft International s.r.o.',
-  parentCompanyLocation: 'Ostrava, Czech Republic',
-  parentCompanyUrl: 'https://www.leseft.cz/en/',
   fourPillars: ['Trade', 'Energy', 'Industry', 'West Africa'],
-  heroEyebrow: 'A Subsidiary of Leseft International s.r.o. (Czech Republic)',
   heroHeadline: 'Bridging European Industrial Standards with West African Markets',
   heroSubheadline:
     'Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, EU-certified metallurgy, and high-grade agricultural commodities across Nigeria and West Africa.',

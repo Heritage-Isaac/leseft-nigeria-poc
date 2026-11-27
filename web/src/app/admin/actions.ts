@@ -9,8 +9,6 @@ export interface UpdateSiteSettingsInput {
   headquartersAddress: string
   contactPhone: string
   contactEmail: string
-  parentCompanyUrl: string
-  heroEyebrow?: string
   heroHeadline: string
   heroSubheadline: string
   navLogoUrl?: string
@@ -68,12 +66,10 @@ export async function updateSiteSettingsInSanity(input: UpdateSiteSettingsInput)
       headquartersAddress: input.headquartersAddress,
       contactPhone: input.contactPhone,
       contactEmail: input.contactEmail,
-      parentCompanyUrl: input.parentCompanyUrl,
       heroHeadline: input.heroHeadline,
       heroSubheadline: input.heroSubheadline,
     }
 
-    if (input.heroEyebrow !== undefined) payload.heroEyebrow = input.heroEyebrow
     if (input.navLogoUrl !== undefined) payload.navLogoUrl = input.navLogoUrl
     if (input.navLogoText !== undefined) payload.navLogoText = input.navLogoText
     if (input.navLinks !== undefined) payload.navLinks = input.navLinks
@@ -160,7 +156,6 @@ export async function updateCompanyProfileInSanity(input: any) {
     headquartersAddress: 'Plot 69, Gold Court Estate Street, Katampe District, FCT Abuja',
     contactPhone: '+234 809 533 2333',
     contactEmail: 'info@leseft.cz',
-    parentCompanyUrl: 'https://www.leseft.cz/en/',
     heroHeadline: input.pageHeading || 'Bridging European Industrial Standards with West African Markets',
     heroSubheadline: input.shortIntroduction || '',
   })

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Send, CheckCircle2, Phone, Mail, MapPin, Building } from 'lucide-react'
+import { Send, CheckCircle2, Phone, Mail, MapPin } from 'lucide-react'
 import type { SiteSettings } from '@/types'
 import { useLanguage } from '@/context/LanguageContext'
 
@@ -61,24 +61,6 @@ export function TradeInquirySection({ settings }: TradeInquirySectionProps) {
                 <p className="text-[10px] text-[#7A7A7D] pl-6">
                   {settings.cacNumber} • Inc. {settings.incorporationDate}
                 </p>
-              </div>
-
-              <div className="p-4 rounded-xs bg-[#F7F9FB] border border-[#E1E1E1] space-y-1.5">
-                <div className="flex items-center gap-2 text-[#414042] font-bold">
-                  <Building className="w-4 h-4 text-[#1C75BC]" />
-                  <span>{t.quote.parentTitle}</span>
-                </div>
-                <p className="text-[#4D4D4D] pl-6">
-                  {settings.parentCompanyName} ({settings.parentCompanyLocation})
-                </p>
-                <a
-                  href={settings.parentCompanyUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[11px] text-[#1C75BC] hover:underline pl-6 block font-mono"
-                >
-                  {settings.parentCompanyUrl}
-                </a>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

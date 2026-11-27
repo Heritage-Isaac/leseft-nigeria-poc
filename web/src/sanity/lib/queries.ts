@@ -13,11 +13,7 @@ export const siteSettingsQuery = groq`
     headquartersAddress,
     contactPhone,
     contactEmail,
-    parentCompanyName,
-    parentCompanyLocation,
-    parentCompanyUrl,
     fourPillars,
-    heroEyebrow,
     heroHeadline,
     heroSubheadline,
     navLogo {

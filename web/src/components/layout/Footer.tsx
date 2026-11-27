@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { ShieldCheck, Phone, Mail, MapPin, ExternalLink } from 'lucide-react'
+import { ShieldCheck, Phone, Mail, MapPin, MessageCircle } from 'lucide-react'
 import type { SiteSettings } from '@/types'
 import { fallbackSiteSettings } from '@/sanity/lib/client'
 import { useLanguage } from '@/context/LanguageContext'
@@ -48,18 +48,6 @@ export function Footer({ settings = fallbackSiteSettings, companyName }: FooterP
                 <span>
                   {t.footer.registeredText}: <strong className="font-mono text-white">{activeSettings.cacNumber}</strong> (Inc. {activeSettings.incorporationDate})
                 </span>
-              </div>
-              <div className="flex items-center gap-2 text-[#B0B0B0]">
-                <span>{t.footer.parentLabel}:</span>
-                <a
-                  href={activeSettings.parentCompanyUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-[#27AAE1] hover:underline flex items-center gap-1 font-semibold"
-                >
-                  <span>{activeSettings.parentCompanyName} ({activeSettings.parentCompanyLocation})</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
               </div>
             </div>
           </div>
@@ -113,7 +101,16 @@ export function Footer({ settings = fallbackSiteSettings, companyName }: FooterP
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#A0A0A5]">
           <p>
             © {new Date().getFullYear()} {activeSettings.companyName}. {t.footer.rightsReserved}{' '}
-            <span className="text-[#27AAE1] font-medium ml-1">Built by Heritage Isaac</span>
+            <a
+              href={`https://wa.me/2347059804235?text=${encodeURIComponent('We like your work and would love to work with you on LeSeft.')}`}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Message Heritage Isaac on WhatsApp about working on LeSeft"
+              className="text-[#27AAE1] font-medium ml-1 inline-flex items-center gap-1 hover:underline"
+            >
+              Built by Heritage Isaac
+              <MessageCircle className="w-3 h-3" />
+            </a>
           </p>
           <p className="flex items-center gap-3">
             <span>Trade</span>

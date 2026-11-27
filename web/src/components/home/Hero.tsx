@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import type { SiteSettings } from '@/types'
 import { useLanguage } from '@/context/LanguageContext'
@@ -19,6 +19,7 @@ export function Hero({ settings }: HeroProps) {
   const { t } = useLanguage()
   const [activeVideoIndex, setActiveVideoIndex] = useState(0)
   const [readyVideos, setReadyVideos] = useState<boolean[]>([])
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
   const mediaType = settings.heroMediaType || 'video'
   const videos =
@@ -28,13 +29,36 @@ export function Hero({ settings }: HeroProps) {
   const heroImageUrl =
     settings.heroImageUrl || settings.heroImage?.asset?.url || '/assets/leseft-hero.avif'
 
-  const eyebrow = settings.heroEyebrow || t.hero.eyebrow
   const headline = settings.heroHeadline || t.hero.headline
   const subheadline = settings.heroSubheadline || t.hero.subheadline
   const primaryCtaText = settings.heroPrimaryCtaText || t.hero.primaryCta
   const primaryCtaHref = settings.heroPrimaryCtaHref || '#quote'
   const secondaryCtaText = settings.heroSecondaryCtaText || t.hero.secondaryCta
   const secondaryCtaHref = settings.heroSecondaryCtaHref || '#projects'
+
+  useEffect(() => {
+    if (mediaType !== 'video') return
+
+    const syncReadyVideos = () => {
+      const nextReadyVideos = videoRefs.current.map(
+        (video) => Boolean(video && video.readyState >= 3 && !video.paused)
+      )
+
+      setReadyVideos((current) =>
+        current.length === nextReadyVideos.length &&
+        current.every((ready, index) => ready === nextReadyVideos[index])
+          ? current
+          : nextReadyVideos
+      )
+    }
+
+    const animationFrame = requestAnimationFrame(syncReadyVideos)
+    const interval = setInterval(syncReadyVideos, 500)
+    return () => {
+      cancelAnimationFrame(animationFrame)
+      clearInterval(interval)
+    }
+  }, [mediaType])
 
   useEffect(() => {
     if (mediaType !== 'video' || videos.length <= 1) return
@@ -57,47 +81,40 @@ export function Hero({ settings }: HeroProps) {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         />
       ) : (
-        <>
-          <img
-            src={heroImageUrl}
-            alt=""
+        videos.map((src, index) => (
+          <video
+            key={src}
+            ref={(video) => {
+              videoRefs.current[index] = video
+            }}
+            src={src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
             aria-hidden="true"
-            className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-1000 ${
-              readyVideos[activeVideoIndex] ? 'opacity-0' : 'opacity-100'
+            onPlaying={() => {
+              setReadyVideos((current) => {
+                if (current[index]) return current
+                const next = [...current]
+                next[index] = true
+                return next
+              })
+            }}
+            onWaiting={() => {
+              setReadyVideos((current) => {
+                if (!current[index]) return current
+                const next = [...current]
+                next[index] = false
+                return next
+              })
+            }}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none ${
+              index === activeVideoIndex && readyVideos[index] ? 'opacity-100' : 'opacity-0'
             }`}
           />
-          {videos.map((src, index) => (
-            <video
-              key={src}
-              src={src}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-hidden="true"
-              onPlaying={() => {
-                setReadyVideos((current) => {
-                  if (current[index]) return current
-                  const next = [...current]
-                  next[index] = true
-                  return next
-                })
-              }}
-              onWaiting={() => {
-                setReadyVideos((current) => {
-                  if (!current[index]) return current
-                  const next = [...current]
-                  next[index] = false
-                  return next
-                })
-              }}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none ${
-                index === activeVideoIndex && readyVideos[index] ? 'opacity-100' : 'opacity-0'
-              }`}
-            />
-          ))}
-        </>
+        ))
       )}
 
       {/* Lighter corporate gradient overlay so background video stays clear */}
@@ -114,12 +131,6 @@ export function Hero({ settings }: HeroProps) {
       />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-        {/* Eyebrow Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xs bg-[#2A2A2C]/90 border border-white/15 text-[11px] font-semibold text-[#E0E0E0]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#27AAE1]" />
-          <span>{eyebrow}</span>
-        </div>
-
         {/* Reduced Main Headline */}
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-[1.15] max-w-3xl mx-auto drop-shadow-sm">
           {headline}

@@ -35,10 +35,6 @@ export function CompanyProfileManager({ initialSettings, onSaved }: SiteSettings
       'Plot 69, Gold Court Estate Street, Katampe District, FCT Abuja',
     contactPhone: initialSettings?.contactPhone || '+234 809 533 2333',
     contactEmail: initialSettings?.contactEmail || 'info@leseft.cz',
-    parentCompanyUrl: initialSettings?.parentCompanyUrl || 'https://www.leseft.cz/en/',
-    heroEyebrow:
-      initialSettings?.heroEyebrow ||
-      'A Subsidiary of Leseft International s.r.o. (Czech Republic)',
     heroHeadline:
       initialSettings?.heroHeadline ||
       'Bridging European Industrial Standards with West African Markets',
@@ -120,7 +116,7 @@ export function CompanyProfileManager({ initialSettings, onSaved }: SiteSettings
             Corporate Profile & Legal Registration
           </h2>
           <p className="text-xs text-[#626B75] mt-0.5">
-            Manage official CAC identity, Abuja headquarters, Czech parent company link, and core landing page messaging.
+            Manage official CAC identity, Abuja headquarters, and core landing page messaging.
           </p>
         </div>
         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xs bg-[#EBF7EE] text-[#0E5A3A] border border-[#BCE6C4] text-[11px] font-semibold">
@@ -197,15 +193,6 @@ export function CompanyProfileManager({ initialSettings, onSaved }: SiteSettings
             />
           </div>
 
-          <div className="space-y-1.5">
-            <label className="font-semibold text-[#17191C]">Parent Company Website</label>
-            <input
-              type="url"
-              value={formData.parentCompanyUrl}
-              onChange={(e) => setFormData({ ...formData, parentCompanyUrl: e.target.value })}
-              className="w-full px-3 py-2 bg-white border border-[#E5E7EB] rounded-xs text-[#17191C] font-mono focus:outline-hidden focus:border-[#17191C]"
-            />
-          </div>
         </div>
 
         {/* Navigation Bar Settings */}
@@ -377,16 +364,6 @@ export function CompanyProfileManager({ initialSettings, onSaved }: SiteSettings
             <p className="text-[11px] text-[#626B75]">
               Control hero copy, buttons, and background image or video carousel.
             </p>
-          </div>
-
-          <div className="space-y-1.5">
-            <label className="font-semibold text-[#17191C]">Hero Eyebrow Text</label>
-            <input
-              type="text"
-              value={formData.heroEyebrow}
-              onChange={(e) => setFormData({ ...formData, heroEyebrow: e.target.value })}
-              className="w-full px-3 py-2 bg-white border border-[#E5E7EB] rounded-xs text-[#17191C] focus:outline-hidden focus:border-[#17191C]"
-            />
           </div>
 
           <div className="space-y-1.5">

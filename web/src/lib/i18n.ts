@@ -12,7 +12,6 @@ export interface TranslationDictionary {
     exploreSectors: string
   }
   hero: {
-    eyebrow: string
     headline: string
     subheadline: string
     primaryCta: string
@@ -98,7 +97,6 @@ export interface TranslationDictionary {
     title: string
     subtitle: string
     hqTitle: string
-    parentTitle: string
     phoneLabel: string
     emailLabel: string
     formTitle: string
@@ -120,7 +118,6 @@ export interface TranslationDictionary {
   footer: {
     aboutText: string
     registeredText: string
-    parentLabel: string
     verticalsTitle: string
     headquartersTitle: string
     rightsReserved: string
@@ -141,7 +138,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       exploreSectors: 'Explore Sectors',
     },
     hero: {
-      eyebrow: 'A Subsidiary of Leseft International s.r.o. (Czech Republic)',
       headline: 'Bridging European Industrial Standards with West African Markets',
       subheadline:
         'Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, EU-certified metallurgy, and high-grade agricultural commodities across Nigeria and West Africa.',
@@ -159,10 +155,10 @@ export const translations: Record<Language, TranslationDictionary> = {
       westAfricaDesc: 'Abuja headquarters, regulatory clearance & regional delivery',
     },
     metallurgy: {
-      badge: 'Parent Company Heritage (leseft.cz)',
+      badge: 'Industrial Supply',
       title: 'EU-Certified Metallurgy, Forgings & Industrial Equipment',
       subtitle:
-        'Backed by Leseft International s.r.o. in Ostrava, we supply high-performance metallurgical products and heavy machinery direct from leading Czech manufacturers.',
+        'We supply high-performance metallurgical products and heavy machinery from leading manufacturers to meet client requirements.',
       ingotsTitle: 'Steel Ingots',
       ingotsDesc:
         'Supply of forged and cast steel ingots with or without heat treatment, including thermal processing and custom ingot formulations built precisely to client engineering specifications.',
@@ -261,7 +257,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       subtitle:
         'Connect directly with our Abuja operations team and European procurement coordinators for equipment specs, bulk pricing, and delivery timelines.',
       hqTitle: 'Abuja Headquarters',
-      parentTitle: 'European Parent Entity',
       phoneLabel: 'Direct Phone / WhatsApp',
       emailLabel: 'Official Email',
       formTitle: 'B2B Trade & Equipment RFQ',
@@ -285,7 +280,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       aboutText:
         'A licensed Nigerian trading, clean energy, and industrial portal delivering Central European engineering standards to West African commercial markets.',
       registeredText: 'Registered in Nigeria',
-      parentLabel: 'Parent Company',
       verticalsTitle: 'Core Verticals',
       headquartersTitle: 'Headquarters',
       rightsReserved: 'All rights reserved.',
@@ -305,7 +299,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       exploreSectors: 'Prozkoumat sektory',
     },
     hero: {
-      eyebrow: 'Dceřiná společnost Leseft International s.r.o. (Česká republika)',
       headline: 'Propojení evropských průmyslových standardů se západoafrickými trhy',
       subheadline:
         'Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, EU-certified metallurgy, and high-grade agricultural commodities across Nigeria and West Africa.',
@@ -323,10 +316,10 @@ export const translations: Record<Language, TranslationDictionary> = {
       westAfricaDesc: 'Centrála v Abuji, celní odbavení a regionální distribuce',
     },
     metallurgy: {
-      badge: 'Dědictví mateřské společnosti (leseft.cz)',
+      badge: 'Průmyslové dodávky',
       title: 'Certifikovaná metalurgie EU, výkovky a průmyslová zařízení',
       subtitle:
-        'S podporou Leseft International s.r.o. v Ostravě dodáváme vysoce výkonné metalurgické výrobky a těžké stroje přímo od předních českých výrobců.',
+        'Dodáváme vysoce výkonné metalurgické výrobky a těžké stroje od předních výrobců podle požadavků klientů.',
       ingotsTitle: 'Ocelové ingoty',
       ingotsDesc:
         'Dodávky kovaných i litých ocelových ingotů s tepelným zpracováním nebo bez něj, včetně tepelného zpracování a výroby nových typů ingotů přesně podle požadavků zákazníka.',
@@ -425,7 +418,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       subtitle:
         'Spojte se přímo s naším operačním týmem v Abuji a evropskými koordinátory nákupu pro specifikace a termíny dodání.',
       hqTitle: 'Centrála v Abuji',
-      parentTitle: 'Evropská mateřská společnost',
       phoneLabel: 'Telefon / WhatsApp',
       emailLabel: 'Oficiální e-mail',
       formTitle: 'Poptávka B2B obchodu a zařízení',
@@ -449,7 +441,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       aboutText:
         'Licencovaný nigerijský obchodní a průmyslový portál přinášející středoevropské strojírenské standardy na západoafrické komerční trhy.',
       registeredText: 'Registrováno v Nigérii',
-      parentLabel: 'Mateřská společnost',
       verticalsTitle: 'Klíčové vertikály',
       headquartersTitle: 'Sídlo společnosti',
       rightsReserved: 'Všechna práva vyhrazena.',
@@ -469,7 +460,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       exploreSectors: 'Poznaj sektory',
     },
     hero: {
-      eyebrow: 'Spółka zależna Leseft International s.r.o. (Republika Czeska)',
       headline: 'Łączenie europejskich standardów przemysłowych z rynkami Afryki Zachodniej',
       subheadline:
         'Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, EU-certified metallurgy, and high-grade agricultural commodities across Nigeria and West Africa.',
@@ -487,10 +477,10 @@ export const translations: Record<Language, TranslationDictionary> = {
       westAfricaDesc: 'Siedziba w Abudży, odprawa celna i dystrybucja regionalna',
     },
     metallurgy: {
-      badge: 'Dziedzictwo spółki macierzystej (leseft.cz)',
+      badge: 'Dostawy przemysłowe',
       title: 'Certyfikowana metalurgia UE, odkuwki i urządzenia przemysłowe',
       subtitle:
-        'Wspierani przez Leseft International s.r.o. w Ostrawie, dostarczamy wysokowydajne wyroby hutnicze i ciężkie maszyny bezpośrednio od wiodących czeskich producentów.',
+        'Dostarczamy wysokowydajne wyroby hutnicze i ciężkie maszyny od wiodących producentów zgodnie z wymaganiami klientów.',
       ingotsTitle: 'Wlewki stalowe (Ingoty)',
       ingotsDesc:
         'Dostawa wlewków stalowych kuty i lanych z obróbką cieplną lub bez, w tym obróbka termiczna i produkcja nowych gatunków stali ściśle według specyfikacji klienta.',
@@ -589,7 +579,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       subtitle:
         'Skontaktuj się bezpośrednio z naszym zespołem operacyjnym w Abudży oraz europejskimi koordynatorami ds. specyfikacji i harmonogramu dostaw.',
       hqTitle: 'Siedziba w Abudży',
-      parentTitle: 'Europejska spółka macierzysta',
       phoneLabel: 'Telefon / WhatsApp',
       emailLabel: 'Oficjalny e-mail',
       formTitle: 'Zapytanie ofertowe B2B (RFQ)',
@@ -613,7 +602,6 @@ export const translations: Record<Language, TranslationDictionary> = {
       aboutText:
         'Licencjonowany nigeryjski portal handlowy i przemysłowy, wdrażający środkowoeuropejskie standardy inżynieryjne na rynkach Afryki Zachodniej.',
       registeredText: 'Zarejestrowano w Nigerii',
-      parentLabel: 'Spółka macierzysta',
       verticalsTitle: 'Kluczowe wertykały',
       headquartersTitle: 'Siedziba główna',
       rightsReserved: 'Wszelkie prawa zastrzeżone.',
