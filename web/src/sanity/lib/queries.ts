@@ -19,7 +19,39 @@ export const siteSettingsQuery = groq`
     fourPillars,
     heroEyebrow,
     heroHeadline,
-    heroSubheadline
+    heroSubheadline,
+    navLogo {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    navLogoUrl,
+    navLogoText,
+    navLinks[] {
+      _key,
+      label,
+      href
+    },
+    navCtaText,
+    navCtaHref,
+    navCtaColor,
+    navCtaTextColor,
+    heroMediaType,
+    heroImage {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    heroImageUrl,
+    heroVideos,
+    heroPrimaryCtaText,
+    heroPrimaryCtaHref,
+    heroSecondaryCtaText,
+    heroSecondaryCtaHref
   }
 `
 

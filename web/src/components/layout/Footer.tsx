@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { ShieldCheck, Phone, Mail, MapPin, ExternalLink, Globe } from 'lucide-react'
+import { ShieldCheck, Phone, Mail, MapPin, ExternalLink } from 'lucide-react'
 import type { SiteSettings } from '@/types'
 import { fallbackSiteSettings } from '@/sanity/lib/client'
 import { useLanguage } from '@/context/LanguageContext'
@@ -12,12 +12,16 @@ interface FooterProps {
 }
 
 export function Footer({ settings = fallbackSiteSettings, companyName }: FooterProps) {
-  const { lang, setLang, t } = useLanguage()
+  const { t } = useLanguage()
 
   const activeSettings = {
     ...settings,
     companyName: companyName || settings.companyName || 'Leseft Nigeria Limited',
   }
+  const navLinks =
+    activeSettings.navLinks && activeSettings.navLinks.length > 0
+      ? activeSettings.navLinks
+      : fallbackSiteSettings.navLinks ?? []
 
   return (
     <footer className="bg-[#414042] text-white border-t-2 border-[#1C75BC]">
@@ -66,36 +70,13 @@ export function Footer({ settings = fallbackSiteSettings, companyName }: FooterP
               {t.footer.verticalsTitle}
             </h4>
             <ul className="space-y-2 text-[#C9D1D9]">
-              <li>
-                <a href="#sectors" className="hover:text-[#27AAE1] transition-colors">
-                  {t.nav.sectors}
-                </a>
-              </li>
-              <li>
-                <a href="#metallurgy" className="hover:text-[#27AAE1] transition-colors">
-                  {t.nav.metallurgy}
-                </a>
-              </li>
-              <li>
-                <a href="#commodities" className="hover:text-[#27AAE1] transition-colors">
-                  {t.nav.commodities}
-                </a>
-              </li>
-              <li>
-                <a href="#why-partner" className="hover:text-[#27AAE1] transition-colors">
-                  {t.nav.whyPartner}
-                </a>
-              </li>
-              <li>
-                <a href="#careers" className="hover:text-[#27AAE1] transition-colors">
-                  {t.nav.careers}
-                </a>
-              </li>
-              <li>
-                <a href="#quote" className="hover:text-[#27AAE1] transition-colors">
-                  {t.nav.contact}
-                </a>
-              </li>
+              {navLinks.map((link) => (
+                <li key={link._key || link.label}>
+                  <a href={link.href} className="hover:text-[#27AAE1] transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -125,32 +106,6 @@ export function Footer({ settings = fallbackSiteSettings, companyName }: FooterP
               </div>
             </div>
 
-            {/* Language Selector in Footer */}
-            <div className="pt-2 border-t border-white/10 space-y-1.5">
-              <span className="text-[11px] font-semibold text-[#A0A0A5] flex items-center gap-1">
-                <Globe className="w-3 h-3 text-[#27AAE1]" />
-                <span>Languages / Jazyky:</span>
-              </span>
-              <div className="flex items-center gap-2">
-                {[
-                  { code: 'en', label: 'English' },
-                  { code: 'cs', label: 'Čeština' },
-                  { code: 'pl', label: 'Polski' },
-                ].map((l) => (
-                  <button
-                    key={l.code}
-                    onClick={() => setLang(l.code as any)}
-                    className={`px-2 py-1 rounded-xs text-[11px] font-bold transition-all ${
-                      lang === l.code
-                        ? 'bg-[#1C75BC] text-white shadow-xs'
-                        : 'bg-[#2A2A2C] text-[#C9D1D9] hover:bg-white/10'
-                    }`}
-                  >
-                    {l.label}
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
 

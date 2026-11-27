@@ -30,7 +30,8 @@ export function TradeInquirySection({ settings }: TradeInquirySectionProps) {
   }
 
   return (
-    <section id="quote" className="py-20 bg-white border-b border-[#E1E1E1]">
+    <section id="contact" className="py-20 bg-white border-b border-[#E1E1E1]">
+      <div id="quote" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Left Column: Corporate Office & Direct Channels */}

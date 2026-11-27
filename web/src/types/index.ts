@@ -28,6 +28,12 @@ export interface PortableTextBlock {
   children?: PortableTextBlockChild[]
 }
 
+export interface NavLinkItem {
+  _key?: string
+  label: string
+  href: string
+}
+
 export interface SiteSettings {
   _id?: string
   _type?: 'siteSettings'
@@ -44,6 +50,22 @@ export interface SiteSettings {
   heroEyebrow: string
   heroHeadline: string
   heroSubheadline: string
+  navLogo?: SanityImageReference
+  navLogoUrl?: string
+  navLogoText?: string
+  navLinks?: NavLinkItem[]
+  navCtaText?: string
+  navCtaHref?: string
+  navCtaColor?: string
+  navCtaTextColor?: string
+  heroMediaType?: 'video' | 'image'
+  heroImage?: SanityImageReference
+  heroImageUrl?: string
+  heroVideos?: string[]
+  heroPrimaryCtaText?: string
+  heroPrimaryCtaHref?: string
+  heroSecondaryCtaText?: string
+  heroSecondaryCtaHref?: string
 }
 
 export interface Sector {

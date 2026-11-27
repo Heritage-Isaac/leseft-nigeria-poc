@@ -37,6 +37,30 @@ export const fallbackSiteSettings: SiteSettings = {
   heroHeadline: 'Bridging European Industrial Standards with West African Markets',
   heroSubheadline:
     'Leseft Nigeria Limited delivers reliable import-export logistics, clean energy hardware, industrial machinery, EU-certified metallurgy, and high-grade agricultural commodities across Nigeria and West Africa.',
+  navLogoText: 'LS',
+  navLinks: [
+    { label: 'Home', href: '#home' },
+    { label: 'About Us', href: '#about' },
+    { label: 'Commodities', href: '#commodities' },
+    { label: 'Equipment & Technologies', href: '#equipment' },
+    { label: 'Projects & Services', href: '#projects' },
+    { label: 'For Partners', href: '#partners' },
+    { label: 'Contact Us', href: '#contact' },
+  ],
+  navCtaText: 'Request a Quote',
+  navCtaHref: '/#quote',
+  navCtaColor: '#1C75BC',
+  navCtaTextColor: '#FFFFFF',
+  heroMediaType: 'video',
+  heroVideos: [
+    '/videos/15427503_640_360_50fps.mp4',
+    '/videos/8457855-sd_640_360_24fps.mp4',
+    '/videos/6618038-sd_426_240_24fps.mp4',
+  ],
+  heroPrimaryCtaText: 'Request a Quote',
+  heroPrimaryCtaHref: '#quote',
+  heroSecondaryCtaText: 'Explore Sectors',
+  heroSecondaryCtaHref: '#projects',
 }
 
 // 3 Core Business Pillars

@@ -4,24 +4,22 @@ import {
   fallbackSiteSettings,
   fallbackSectors,
   fallbackCommodities,
-  fallbackCareerListings,
 } from '@/sanity/lib/client'
 import {
   siteSettingsQuery,
   sectorsQuery,
   commoditiesQuery,
-  careerListingsQuery,
 } from '@/sanity/lib/queries'
-import type { SiteSettings, Sector, Commodity, CareerListing } from '@/types'
+import type { SiteSettings, Sector, Commodity } from '@/types'
 import { LanguageProvider } from '@/context/LanguageContext'
 import { Navbar } from '@/components/layout/Navbar'
 import { Hero } from '@/components/home/Hero'
 import { PillarRibbon } from '@/components/home/PillarRibbon'
-import { CzechMetallurgySection } from '@/components/home/CzechMetallurgySection'
-import { SectorsSection } from '@/components/home/SectorsSection'
+import { AboutSection } from '@/components/home/AboutSection'
 import { CommoditiesDesk } from '@/components/home/CommoditiesDesk'
-import { TrustSection } from '@/components/home/TrustSection'
-import { CareersSection } from '@/components/home/CareersSection'
+import { EquipmentSection } from '@/components/home/EquipmentSection'
+import { ProjectsServicesSection } from '@/components/home/ProjectsServicesSection'
+import { ForPartnersSection } from '@/components/home/ForPartnersSection'
 import { TradeInquirySection } from '@/components/home/TradeInquirySection'
 import { Footer } from '@/components/layout/Footer'
 
@@ -47,16 +45,9 @@ export default async function HomePage() {
     fallback: fallbackCommodities,
   })
 
-  // Fetch career listings from Sanity
-  const careersFetch = await sanityFetch<CareerListing[]>({
-    query: careerListingsQuery,
-    fallback: fallbackCareerListings,
-  })
-
   const settings = settingsFetch.data || fallbackSiteSettings
   const sectors = sectorsFetch.data || fallbackSectors
   const commodities = commoditiesFetch.data || fallbackCommodities
-  const careers = careersFetch.data || fallbackCareerListings
 
   return (
     <LanguageProvider>
@@ -66,17 +57,18 @@ export default async function HomePage() {
           companyName={settings.companyName}
           phone={settings.contactPhone}
           email={settings.contactEmail}
+          settings={settings}
         />
 
-        {/* Main B2B Portal Content */}
+        {/* Main One-Pager Content (Structured per Brief) */}
         <main className="flex-1">
           <Hero settings={settings} />
           <PillarRibbon />
-          <CzechMetallurgySection />
-          <SectorsSection sectors={sectors} />
+          <AboutSection settings={settings} />
           <CommoditiesDesk commodities={commodities} />
-          <TrustSection />
-          <CareersSection careers={careers} contactEmail={settings.contactEmail} />
+          <EquipmentSection />
+          <ProjectsServicesSection sectors={sectors} />
+          <ForPartnersSection />
           <TradeInquirySection settings={settings} />
         </main>
 
