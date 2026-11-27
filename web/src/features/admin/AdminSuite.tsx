@@ -44,6 +44,9 @@ export function AdminSuite({
   >('preview')
 
   const [refreshTrigger, setRefreshTrigger] = useState(0)
+  const studioUrl =
+    process.env.NEXT_PUBLIC_SANITY_STUDIO_URL ||
+    (process.env.NODE_ENV === 'development' ? 'http://localhost:3333' : '/studio')
 
   const handleDocumentSaved = () => {
     setRefreshTrigger((prev) => prev + 1)
@@ -152,7 +155,7 @@ export function AdminSuite({
         {/* Footer: Studio Launcher */}
         <div className="p-3 border-t border-[#E5E7EB] bg-[#FAFAFA] space-y-2">
           <a
-            href="http://localhost:3333"
+            href={studioUrl}
             target="_blank"
             rel="noreferrer"
             className="flex items-center justify-between p-2.5 rounded-xs border border-[#E5E7EB] bg-white text-xs font-semibold text-[#17191C] hover:bg-[#F1F3F5] transition-colors"

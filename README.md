@@ -57,19 +57,22 @@ cd studio && npm run dev
 ```
 Available at: [http://localhost:3333](http://localhost:3333)
 
-## Deploy the Frontend to Vercel
+## Deploy the Multi-Service Project to Vercel
 
-1. Import this GitHub repository into Vercel and set the project root directory to `web`.
+1. Import this GitHub repository into Vercel and keep the project root at the repository root.
+   The root `vercel.json` defines the `web` and `studio` services.
 2. Name the Vercel project `leseft-sanity-poc`. The intended URL is
    [https://leseft-sanity-poc.vercel.app/](https://leseft-sanity-poc.vercel.app/); Vercel confirms
    whether the name is available when creating the project.
 3. Add the required Sanity variables from `web/.env.example` to the Vercel project environment.
    Keep API tokens server-side; never add them as `NEXT_PUBLIC_` variables.
-4. In Sanity Manage, add the production URL and your local development URL to the project's CORS
+4. Set `NEXT_PUBLIC_SANITY_STUDIO_URL=/studio` in Vercel so the admin launcher opens the public Studio
+   service. The Sanity build also serves its generated assets at `/static/*`.
+5. In Sanity Manage, add the production URL and your local development URL to the project's CORS
    origins so live content updates can connect from the frontend.
 
-Vercel detects Next.js automatically when the project root is `web`; the default build command is
-`npm run build`.
+Vercel builds each service independently. Run `vercel dev` from the repository root to develop both
+services together and test the `/studio` and `/` routes.
 
 ---
 

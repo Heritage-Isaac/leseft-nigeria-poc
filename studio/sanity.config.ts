@@ -9,6 +9,7 @@ const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 export default defineConfig({
   name: 'leseft-nigeria-studio',
   title: 'LeSeft Nigeria Studio',
+  basePath: '/studio',
   projectId,
   dataset,
   plugins: [
