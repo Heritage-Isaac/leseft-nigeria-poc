@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { ChevronDown, ArrowRight } from 'lucide-react'
+import { ChevronDown, ArrowRight, Menu, X } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
 import { Language } from '@/lib/i18n'
 
@@ -30,6 +30,7 @@ export function Navbar({
   settings,
 }: NavbarProps) {
   const [langDropdownOpen, setLangDropdownOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { lang, setLang, t } = useLanguage()
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -143,20 +144,48 @@ export function Navbar({
                 </div>
               )}
             </div>
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-xs border border-[#E1E1E1] bg-[#F7F9FB] text-[#414042] hover:border-[#1C75BC] hover:text-[#1C75BC] transition-colors"
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
+            >
+              {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile / Tablet Navigation Bar (No Hamburger) */}
-        <nav className="lg:hidden flex items-center gap-4 overflow-x-auto pb-3 pt-1 border-t border-[#F0F2F5]">
-          {navLinks.map((link) => (
+        <nav
+          id="mobile-navigation"
+          aria-label="Mobile navigation"
+          className={`${mobileMenuOpen ? 'block' : 'hidden'} lg:hidden border-t border-[#F0F2F5] py-2`}
+        >
+          <div className="flex flex-col">
+            {navLinks.map((link) => (
+              <Link
+                key={link._key || link.label}
+                href={link.href || '/'}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between border-b border-[#F0F2F5] px-3 py-3 text-xs font-semibold uppercase tracking-wider text-[#4D4D4D] hover:text-[#1C75BC] transition-colors last:border-b-0"
+              >
+                <span>{link.label}</span>
+                <ArrowRight className="h-3.5 w-3.5 text-[#1C75BC]" />
+              </Link>
+            ))}
+
             <Link
-              key={link._key || link.label}
-              href={link.href || '/'}
-              className="text-[10px] font-semibold uppercase tracking-wider text-[#4D4D4D] hover:text-[#1C75BC] transition-colors whitespace-nowrap"
+              href={ctaHref}
+              onClick={() => setMobileMenuOpen(false)}
+              style={{ backgroundColor: ctaBgColor, color: ctaTextColor }}
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-xs px-3 py-3 text-xs font-bold shadow-xs sm:hidden"
             >
-              {link.label}
+              <span>{ctaText}</span>
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-          ))}
+          </div>
         </nav>
       </div>
     </header>
