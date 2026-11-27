@@ -18,6 +18,7 @@ const DEFAULT_HERO_VIDEOS = [
 export function Hero({ settings }: HeroProps) {
   const { t } = useLanguage()
   const [activeVideoIndex, setActiveVideoIndex] = useState(0)
+  const [readyVideos, setReadyVideos] = useState<boolean[]>([])
 
   const mediaType = settings.heroMediaType || 'video'
   const videos =
@@ -38,10 +39,13 @@ export function Hero({ settings }: HeroProps) {
   useEffect(() => {
     if (mediaType !== 'video' || videos.length <= 1) return
     const interval = setInterval(() => {
-      setActiveVideoIndex((prev) => (prev + 1) % videos.length)
+      setActiveVideoIndex((current) => {
+        const next = (current + 1) % videos.length
+        return readyVideos[next] ? next : current
+      })
     }, 6000)
     return () => clearInterval(interval)
-  }, [mediaType, videos.length])
+  }, [mediaType, readyVideos, videos.length])
 
   return (
     <section id="home" className="relative bg-[#17191C] text-white overflow-hidden border-b border-[#2A2A2C] py-14 lg:py-20">
@@ -53,20 +57,47 @@ export function Hero({ settings }: HeroProps) {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         />
       ) : (
-        videos.map((src, index) => (
-          <video
-            key={src}
-            src={src}
-            autoPlay
-            muted
-            loop
-            playsInline
+        <>
+          <img
+            src={heroImageUrl}
+            alt=""
             aria-hidden="true"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none ${
-              index === activeVideoIndex % videos.length ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-1000 ${
+              readyVideos[activeVideoIndex] ? 'opacity-0' : 'opacity-100'
             }`}
           />
-        ))
+          {videos.map((src, index) => (
+            <video
+              key={src}
+              src={src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-hidden="true"
+              onPlaying={() => {
+                setReadyVideos((current) => {
+                  if (current[index]) return current
+                  const next = [...current]
+                  next[index] = true
+                  return next
+                })
+              }}
+              onWaiting={() => {
+                setReadyVideos((current) => {
+                  if (!current[index]) return current
+                  const next = [...current]
+                  next[index] = false
+                  return next
+                })
+              }}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 pointer-events-none ${
+                index === activeVideoIndex && readyVideos[index] ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          ))}
+        </>
       )}
 
       {/* Lighter corporate gradient overlay so background video stays clear */}
