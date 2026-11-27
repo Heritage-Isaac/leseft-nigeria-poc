@@ -36,47 +36,49 @@ export function CommoditiesDesk({ commodities }: CommoditiesDeskProps) {
           </div>
 
           {/* Filter Pills */}
-          <div className="inline-flex rounded-xs border border-[#E1E1E1] bg-[#F7F9FB] p-1">
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-xs transition-all ${
-                selectedCategory === 'all'
-                  ? 'bg-[#1C75BC] text-white shadow-xs'
-                  : 'text-[#414042] hover:text-[#1C75BC]'
-              }`}
-            >
-              {t.commodities.allItems} ({commodities.length})
-            </button>
-            <button
-              onClick={() => setSelectedCategory('commodities')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-xs transition-all ${
-                selectedCategory === 'commodities'
-                  ? 'bg-[#1C75BC] text-white shadow-xs'
-                  : 'text-[#414042] hover:text-[#1C75BC]'
-              }`}
-            >
-              {t.commodities.commoditiesTab}
-            </button>
-            <button
-              onClick={() => setSelectedCategory('energy')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-xs transition-all ${
-                selectedCategory === 'energy'
-                  ? 'bg-[#1C75BC] text-white shadow-xs'
-                  : 'text-[#414042] hover:text-[#1C75BC]'
-              }`}
-            >
-              {t.commodities.energyTab}
-            </button>
-            <button
-              onClick={() => setSelectedCategory('industrial')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-xs transition-all ${
-                selectedCategory === 'industrial'
-                  ? 'bg-[#1C75BC] text-white shadow-xs'
-                  : 'text-[#414042] hover:text-[#1C75BC]'
-              }`}
-            >
-              {t.commodities.industrialTab}
-            </button>
+          <div className="w-full max-w-full overflow-x-auto overscroll-x-contain pb-1 lg:w-auto lg:flex-none">
+            <div className="inline-flex w-max min-w-full rounded-xs border border-[#E1E1E1] bg-[#F7F9FB] p-1 lg:min-w-0">
+              <button
+                onClick={() => setSelectedCategory('all')}
+                className={`shrink-0 whitespace-nowrap px-3 py-1.5 text-xs font-semibold rounded-xs transition-all ${
+                  selectedCategory === 'all'
+                    ? 'bg-[#1C75BC] text-white shadow-xs'
+                    : 'text-[#414042] hover:text-[#1C75BC]'
+                }`}
+              >
+                {t.commodities.allItems} ({commodities.length})
+              </button>
+              <button
+                onClick={() => setSelectedCategory('commodities')}
+                className={`shrink-0 whitespace-nowrap px-3 py-1.5 text-xs font-semibold rounded-xs transition-all ${
+                  selectedCategory === 'commodities'
+                    ? 'bg-[#1C75BC] text-white shadow-xs'
+                    : 'text-[#414042] hover:text-[#1C75BC]'
+                }`}
+              >
+                {t.commodities.commoditiesTab}
+              </button>
+              <button
+                onClick={() => setSelectedCategory('energy')}
+                className={`shrink-0 whitespace-nowrap px-3 py-1.5 text-xs font-semibold rounded-xs transition-all ${
+                  selectedCategory === 'energy'
+                    ? 'bg-[#1C75BC] text-white shadow-xs'
+                    : 'text-[#414042] hover:text-[#1C75BC]'
+                }`}
+              >
+                {t.commodities.energyTab}
+              </button>
+              <button
+                onClick={() => setSelectedCategory('industrial')}
+                className={`shrink-0 whitespace-nowrap px-3 py-1.5 text-xs font-semibold rounded-xs transition-all ${
+                  selectedCategory === 'industrial'
+                    ? 'bg-[#1C75BC] text-white shadow-xs'
+                    : 'text-[#414042] hover:text-[#1C75BC]'
+                }`}
+              >
+                {t.commodities.industrialTab}
+              </button>
+            </div>
           </div>
         </div>
 
